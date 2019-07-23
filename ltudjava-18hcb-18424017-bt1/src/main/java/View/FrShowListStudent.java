@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.LoginDAO;
 import Model.Student;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -100,7 +101,7 @@ public class FrShowListStudent extends JFrame implements ActionListener{
     public void LoadData() throws IOException {
         
         StudentDAO stDAO = new StudentDAO();
-        stDAO.GetListStudent("Data/18HCBs.csv", this.ListStudentByClass);
+        stDAO.GetListStudent("Data/18HCB.csv", this.ListStudentByClass);
         stDAO.GetListStudent("Data/18HCB-CT001.csv", this.ListStudentByClass);
         
     }

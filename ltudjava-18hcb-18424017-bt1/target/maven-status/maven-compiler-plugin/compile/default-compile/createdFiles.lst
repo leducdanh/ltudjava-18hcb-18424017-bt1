@@ -1,6 +1,7 @@
 View/Login.class
-View/FrHome.class
 Controller/StudentDAO.class
 View/FrShowListStudent.class
 View/FrShowListStudent$1.class
 Model/Student.class
+View/FrHome.class
+Controller/LoginDAO.class

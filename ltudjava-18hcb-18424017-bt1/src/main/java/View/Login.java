@@ -5,11 +5,16 @@
  */
 package View;
 
+import Controller.LoginDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -20,20 +25,19 @@ import javax.swing.JTextField;
  */
 public class Login extends JFrame implements ActionListener{
     JButton btnLogin;
+    JTextField txtUser = new JTextField(20);
+    JPasswordField txtPass = new JPasswordField(20);
     
     public Login() {
         CreateFrame();
     }
     
     public void CreateFrame() {
-         // Creating instance of JFrame
-        JFrame frame = new JFrame("My First Swing Example");
-        // Setting the width and height of frame
+        JFrame frame = new JFrame("Login");
         frame.setSize(350, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();    
-        // adding panel to frame
         frame.add(panel);
         placeComponents(panel);
 
@@ -51,17 +55,15 @@ public class Login extends JFrame implements ActionListener{
         userLabel.setBounds(10,20,80,25);
         panel.add(userLabel);
 
-        JTextField userText = new JTextField(20);
-        userText.setBounds(100,20,165,25);
-        panel.add(userText);
+        this.txtUser.setBounds(100,20,165,25);
+        panel.add(this.txtUser);
 
         JLabel passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(10,50,80,25);
         panel.add(passwordLabel);
 
-        JPasswordField passwordText = new JPasswordField(20);
-        passwordText.setBounds(100,50,165,25);
-        panel.add(passwordText);
+        this.txtPass.setBounds(100,50,165,25);
+        panel.add(this.txtPass);
 
         JButton btnLogin = new JButton("login");
         btnLogin.setBounds(10, 80, 80, 25);
@@ -75,6 +77,20 @@ public class Login extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent arg0) {
+        LoginDAO lg = new LoginDAO();
+        try {
+            boolean ckLogin;
+            do{
+                ckLogin = lg.IsLogin(this.txtUser.getText(), this.txtPass.getText());
+                
+                if (!ckLogin) {
+                    JOptionPane.showMessageDialog(rootPane, "Tài khoản không hợp lệ. Xin kiểm tra lại !");
+                    return;
+                }
+            }while(!ckLogin);
+        } catch (IOException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
         FrHome Home = new FrHome();
         Home.setVisible(true);
         this.dispose();
