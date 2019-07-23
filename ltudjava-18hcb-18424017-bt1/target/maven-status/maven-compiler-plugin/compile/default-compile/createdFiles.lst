@@ -4,4 +4,5 @@ View/FrShowListStudent.class
 View/FrShowListStudent$1.class
 Model/Student.class
 View/FrHome.class
+View/FrShowListStudent$2.class
 Controller/LoginDAO.class

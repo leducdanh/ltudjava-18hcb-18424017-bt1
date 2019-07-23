@@ -26,6 +26,11 @@ public class FrHome extends JFrame implements ActionListener{
 //    private JButton btnImportListStudent;
     
     public FrHome() {
+        if (LoginDAO.Username.isEmpty() && LoginDAO.Pass.isEmpty()){
+            Login lg = new Login();
+            lg.setVisible(true);
+            this.dispose();
+        }
         setTitle("Home");
         setSize(500, 500);
         setLocationRelativeTo(null);

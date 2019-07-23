@@ -24,6 +24,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import Controller.StudentDAO;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  *
@@ -42,19 +44,30 @@ public class FrShowListStudent extends JFrame implements ActionListener{
     JComboBox cmbListNameClass; 
     
     public FrShowListStudent() throws IOException {
+        if (LoginDAO.Username.isEmpty() && LoginDAO.Pass.isEmpty()){
+            Login lg = new Login();
+            lg.setVisible(true);
+            this.dispose();
+        }
+        
+        ///////////////////////////////////////////////////
+        //event Closing Frame
+        this.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                FrHome Home = new FrHome();
+                Home.setVisible(true);
+            }
+        });
+        
         DetailComponent();
         
         pn.setLayout(null);
-        
-        DetailComponent();
         sp.setBounds(0,300,600,300);
         pn.add(this.sp);
         
         for(String columnName : ColumnName){
            tableModel.addColumn(columnName);
         }
-        
-//        tableModel
         
         LoadData();
         ShowListStudent(this.cmbListNameClass.getSelectedItem().toString());
@@ -65,13 +78,10 @@ public class FrShowListStudent extends JFrame implements ActionListener{
         columnModel.getColumn(2).setPreferredWidth(200);
         columnModel.getColumn(3).setPreferredWidth(100);
         columnModel.getColumn(4).setPreferredWidth(150);
-
-//        this.tb.setFillsViewportHeight(true);
         
         add(pn);
         setSize(600, 600);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pn.setBounds(200, 1, 600, 300);
         setVisible(true);
     }
@@ -117,33 +127,7 @@ public class FrShowListStudent extends JFrame implements ActionListener{
         this.tb.setModel(tableModel);
     }
 
-//    @Override
-//    public void itemStateChanged(ItemEvent evt) {
-//    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(this.cmbListNameClass)){
-            // Get the source of the component, which is our combo
-                // box.
-                JComboBox comboBox = (JComboBox) e.getSource();
-
-                // Print the selected items and the action command.
-                Object selected = comboBox.getSelectedItem();
-                System.out.println("Selected Item  = " + selected);
-                ShowListStudent(selected.toString());
-                String command = e.getActionCommand();
-                System.out.println("Action Command = " + command);
-
-                // Detect whether the action command is "comboBoxEdited"
-                // or "comboBoxChanged"
-                if ("comboBoxEdited".equals(command)) {
-                    System.out.println("User has typed a string in " +
-                            "the combo box.");
-                } else if ("comboBoxChanged".equals(command)) {
-                    System.out.println("User has selected an item " +
-                            "from the combo box.");
-                }
-        }
     }
 }

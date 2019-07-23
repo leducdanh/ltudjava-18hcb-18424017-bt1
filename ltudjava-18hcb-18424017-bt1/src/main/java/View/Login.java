@@ -9,6 +9,7 @@ import Controller.LoginDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -84,7 +85,8 @@ public class Login extends JFrame implements ActionListener{
                 ckLogin = lg.IsLogin(this.txtUser.getText(), this.txtPass.getText());
                 
                 if (!ckLogin) {
-                    JOptionPane.showMessageDialog(rootPane, "Tài khoản không hợp lệ. Xin kiểm tra lại !");
+//                    JOptionPane.setDefaultLocale(Locale.UK);
+                    JOptionPane.showMessageDialog((JFrame)null, "Tài khoản không hợp lệ. Xin kiểm tra lại !");
                     return;
                 }
             }while(!ckLogin);
