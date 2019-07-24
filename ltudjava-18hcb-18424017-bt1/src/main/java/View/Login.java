@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.LoginDAO;
+import Controller.LoginColtroller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -78,7 +78,7 @@ public class Login extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent arg0) {
-        LoginDAO lg = new LoginDAO();
+        LoginColtroller lg = new LoginColtroller();
         try {
             boolean ckLogin;
             do{

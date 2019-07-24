@@ -8,13 +8,12 @@ package Controller;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  *
  * @author danh
  */
-public class LoginDAO {
+public class LoginColtroller {
     public static String Username="";
     public static String Pass="";
     

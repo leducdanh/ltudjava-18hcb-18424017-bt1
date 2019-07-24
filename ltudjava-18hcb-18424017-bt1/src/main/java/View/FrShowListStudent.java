@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.LoginDAO;
+import Controller.LoginColtroller;
 import Model.Student;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,7 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import Controller.StudentDAO;
+import Controller.StudentController;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -44,7 +44,7 @@ public class FrShowListStudent extends JFrame implements ActionListener{
     JComboBox cmbListNameClass; 
     
     public FrShowListStudent() throws IOException {
-        if (LoginDAO.Username.isEmpty() && LoginDAO.Pass.isEmpty()){
+        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
             Login lg = new Login();
             lg.setVisible(true);
             this.dispose();
@@ -110,7 +110,7 @@ public class FrShowListStudent extends JFrame implements ActionListener{
     // show List student
     public void LoadData() throws IOException {
         
-        StudentDAO stDAO = new StudentDAO();
+        StudentController stDAO = new StudentController();
         stDAO.GetListStudent("Data/18HCB.csv", this.ListStudentByClass);
         stDAO.GetListStudent("Data/18HCB-CT001.csv", this.ListStudentByClass);
         

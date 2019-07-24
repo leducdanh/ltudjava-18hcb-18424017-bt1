@@ -17,10 +17,9 @@ import java.util.HashMap;
  *
  * @author danh
  */
-public class StudentDAO {
-    
+public class StudentController {
     public void GetListStudent(String pathFile, HashMap<String, ArrayList<Student>> ListStudentByClass) throws FileNotFoundException, IOException{
-         FileReader fr = new FileReader(pathFile);
+        FileReader fr = new FileReader(pathFile);
         
         BufferedReader br = new BufferedReader(fr);
         ArrayList<Student> LstStudet = new ArrayList<Student>();

@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.LoginDAO;
+import Controller.LoginColtroller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class FrHome extends JFrame implements ActionListener{
 //    private JButton btnImportListStudent;
     
     public FrHome() {
-        if (LoginDAO.Username.isEmpty() && LoginDAO.Pass.isEmpty()){
+        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
             Login lg = new Login();
             lg.setVisible(true);
             this.dispose();
