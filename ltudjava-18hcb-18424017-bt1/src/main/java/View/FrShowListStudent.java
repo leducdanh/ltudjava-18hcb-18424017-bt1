@@ -26,6 +26,8 @@ import javax.swing.table.TableColumnModel;
 import Controller.StudentController;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Collections;
+import javax.swing.ComboBoxModel;
 
 /**
  *
@@ -42,13 +44,15 @@ public class FrShowListStudent extends JFrame implements ActionListener{
     JScrollPane sp = new JScrollPane(tb);
     DefaultTableModel tableModel = new DefaultTableModel();
     JComboBox cmbListNameClass; 
+    ArrayList<String> LstItemCmb= new ArrayList<String>();  
     
     public FrShowListStudent() throws IOException {
-        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
-            Login lg = new Login();
-            lg.setVisible(true);
-            this.dispose();
-        }
+        LstItemCmb.add("");
+//        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
+//            Login lg = new Login();
+//            lg.setVisible(true);
+//            this.dispose();
+//        }
         
         ///////////////////////////////////////////////////
         //event Closing Frame
@@ -59,7 +63,8 @@ public class FrShowListStudent extends JFrame implements ActionListener{
             }
         });
         
-        DetailComponent();
+        this.GetItemCombobox();
+        this.DetailComponent();
         
         pn.setLayout(null);
         sp.setBounds(0,300,600,300);
@@ -69,8 +74,8 @@ public class FrShowListStudent extends JFrame implements ActionListener{
            tableModel.addColumn(columnName);
         }
         
-        LoadData();
-        ShowListStudent(this.cmbListNameClass.getSelectedItem().toString());
+        this.LoadData();
+        this.ShowListStudent(this.cmbListNameClass.getSelectedItem().toString());
         
         TableColumnModel columnModel = tb.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(50);
@@ -91,16 +96,14 @@ public class FrShowListStudent extends JFrame implements ActionListener{
     }
     
     public void DetailComponent(){
-      String country[]={"18HCB","18HCB-CT001"};  
-      this.cmbListNameClass =new JComboBox(country);
+        Collections.sort(this.LstItemCmb);
+        this.cmbListNameClass =new JComboBox(this.LstItemCmb.toArray());
         cmbListNameClass.setBounds(10,20,150,25);
         cmbListNameClass.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 JComboBox comboBox = (JComboBox) event.getSource();
-
                 Object selected = comboBox.getSelectedItem();
                 ShowListStudent(selected.toString());
-                
             }
         });
         pn.add(cmbListNameClass);
@@ -110,14 +113,19 @@ public class FrShowListStudent extends JFrame implements ActionListener{
     // show List student
     public void LoadData() throws IOException {
         
-        StudentController stDAO = new StudentController();
-        stDAO.GetListStudent("Data/18HCB.csv", this.ListStudentByClass);
-        stDAO.GetListStudent("Data/18HCB-CT001.csv", this.ListStudentByClass);
+        StudentController studentCtr = new StudentController();
+        for (String  str: this.LstItemCmb){
+            studentCtr.GetListStudent("Data/" + str +".txt", this.ListStudentByClass);
+        }
         
     }
     
     public void ShowListStudent(String Key){
         this.tableModel.getDataVector().removeAllElements();
+        if (this.ListStudentByClass.get(Key) == null) {
+            this.tb.setModel(tableModel);
+            return;
+        }
         int index = 0;
         for (Student student : this.ListStudentByClass.get(Key)) {
             index++;
@@ -125,6 +133,24 @@ public class FrShowListStudent extends JFrame implements ActionListener{
             this.tableModel.addRow(new String[]{ "" + index, student.getIdStudent(), student.getNAME(), strGender, student.getID()});
         }
         this.tb.setModel(tableModel);
+    }
+    
+    
+    public void GetItemCombobox(){
+        try {
+            System.out.println("GetItemCombobox");
+            FileReader fr = new FileReader("Data/listNameClass.csv");
+            BufferedReader br = new BufferedReader(fr);
+            while (true){
+                String str = br.readLine();
+                if (str == null)
+                    break;
+                this.LstItemCmb.add(str);
+
+            }
+            fr.close();
+        } catch (Exception e) {
+        }
     }
 
     @Override

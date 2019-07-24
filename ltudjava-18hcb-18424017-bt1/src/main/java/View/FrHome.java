@@ -6,15 +6,19 @@
 package View;
 
 import Controller.LoginColtroller;
+import Controller.StudentController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -23,18 +27,19 @@ import javax.swing.JPanel;
 public class FrHome extends JFrame implements ActionListener{
     private JButton btnImportListStudent;
     private JButton btnShowListStudent;
-//    private JButton btnImportListStudent;
+    private JFileChooser openFile;
     
     public FrHome() {
-        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
-            Login lg = new Login();
-            lg.setVisible(true);
-            this.dispose();
-        }
+//        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
+//            Login lg = new Login();
+//            lg.setVisible(true);
+//            this.dispose();
+//        }
         setTitle("Home");
         setSize(500, 500);
         setLocationRelativeTo(null);
         CreateFrHome();
+        setVisible(true);
     }
     
     public void CreateFrHome() {
@@ -60,7 +65,11 @@ public class FrHome extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e)  {
         if (e.getSource().equals(btnImportListStudent)){
-            onClickBtnImportListStudent();
+            try {
+                onClickBtnImportListStudent();
+            } catch (IOException ex) {
+                Logger.getLogger(FrHome.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         else if (e.getSource().equals(btnShowListStudent)){
             try {
@@ -71,8 +80,22 @@ public class FrHome extends JFrame implements ActionListener{
         }
     }
     
-    private void onClickBtnImportListStudent(){
-        JOptionPane.showInputDialog("Nhap duong dan");
+    private void onClickBtnImportListStudent() throws IOException{
+        System.out.println("onClickBtnImportListStudent");
+        this.openFile = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+        "*.csv", "csv");
+        this.openFile.setAcceptAllFileFilterUsed(false);
+        openFile.setFileFilter(filter);
+        String approveButtonText = null;
+        int returnVal;
+        returnVal = openFile.showDialog(this, approveButtonText);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+           System.out.println("You chose to open this file: " +
+                openFile.getSelectedFile().getCanonicalPath());
+            StudentController studentCtr = new StudentController();
+            studentCtr.ImportFileClass(openFile.getSelectedFile().getCanonicalPath());
+        }
     }
     
     private void onClickBtnShowListStudent() throws IOException{
