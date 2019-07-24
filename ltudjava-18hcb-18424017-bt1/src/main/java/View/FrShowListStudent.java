@@ -27,7 +27,12 @@ import Controller.StudentController;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Collections;
+import javax.swing.ButtonGroup;
 import javax.swing.ComboBoxModel;
+import javax.swing.GroupLayout.Group;
+import javax.swing.JLabel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 /**
  *
@@ -39,12 +44,19 @@ public class FrShowListStudent extends JFrame implements ActionListener{
     
     private HashMap<String, ArrayList<Student>> ListStudentByClass = new HashMap<String, ArrayList<Student>>();
     
-    JPanel pn = new JPanel();
+    JPanel panel = new JPanel();
     JTable tb = new JTable();
     JScrollPane sp = new JScrollPane(tb);
     DefaultTableModel tableModel = new DefaultTableModel();
     JComboBox cmbListNameClass; 
     ArrayList<String> LstItemCmb= new ArrayList<String>();  
+    JTextField txtIDStudent = new JTextField();
+    JTextField txtNameStudent = new JTextField();
+    JTextField txtID = new JTextField();
+    JRadioButton rdbMale=new JRadioButton("Nam", true);  
+    JRadioButton rdbFemale=new JRadioButton("Nữ");  
+
+    ButtonGroup grGender=new ButtonGroup();  
     
     public FrShowListStudent() throws IOException {
         LstItemCmb.add("");
@@ -66,9 +78,9 @@ public class FrShowListStudent extends JFrame implements ActionListener{
         this.GetItemCombobox();
         this.DetailComponent();
         
-        pn.setLayout(null);
+        panel.setLayout(null);
         sp.setBounds(0,300,600,300);
-        pn.add(this.sp);
+        panel.add(this.sp);
         
         for(String columnName : ColumnName){
            tableModel.addColumn(columnName);
@@ -84,10 +96,10 @@ public class FrShowListStudent extends JFrame implements ActionListener{
         columnModel.getColumn(3).setPreferredWidth(100);
         columnModel.getColumn(4).setPreferredWidth(150);
         
-        add(pn);
+        add(panel);
         setSize(600, 600);
         setLocationRelativeTo(null);
-        pn.setBounds(200, 1, 600, 300);
+        panel.setBounds(200, 1, 600, 300);
         setVisible(true);
     }
     
@@ -106,8 +118,34 @@ public class FrShowListStudent extends JFrame implements ActionListener{
                 ShowListStudent(selected.toString());
             }
         });
-        pn.add(cmbListNameClass);
+        panel.add(cmbListNameClass);
           
+        JLabel lblIdStudent = new JLabel("Mã sinh viên");
+        lblIdStudent.setBounds(10,50,100,25);
+        panel.add(lblIdStudent);
+        this.txtIDStudent.setBounds(100,50,165,25);
+        panel.add(this.txtIDStudent);
+          
+        JLabel lblNameStudent = new JLabel("Tên sinh viên");
+        lblNameStudent.setBounds(10,80,100,25);
+        panel.add(lblNameStudent);
+        this.txtNameStudent.setBounds(100,80,165,25);
+        panel.add(this.txtNameStudent);
+          
+        JLabel blbID = new JLabel("CMND");
+        blbID.setBounds(10,110,100,25);
+        panel.add(blbID);
+        this.txtID.setBounds(100,110,165,25);
+        panel.add(this.txtID);
+        
+        JLabel blbGender = new JLabel("Giới tính");
+        blbGender.setBounds(10,140,100,25);
+        panel.add(blbGender);
+        this.rdbMale.setBounds(100,140,90,30);  
+        this.rdbFemale.setBounds(200,140,100,30);  
+        this.grGender.add(this.rdbMale);grGender.add(this.rdbFemale);
+        this.rdbMale.isSelected( );
+        this.panel.add(this.rdbMale);panel.add(this.rdbFemale);
     }
     
     // show List student

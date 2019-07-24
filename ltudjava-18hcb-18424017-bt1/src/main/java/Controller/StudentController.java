@@ -13,6 +13,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -77,5 +79,27 @@ public class StudentController {
         fr.close();
         fw.close();
         fwListNameClass.close();
+    }
+    
+    public void AddStudent(Student student, String nameClass, ArrayList<Student> lstStudent) throws FileNotFoundException, IOException{
+        //write file
+        FileWriter fw = new FileWriter("Data/" + nameClass + ".txt");
+        
+        //check exist IdStudent
+        for (Student st : lstStudent){
+            if (st.getIdStudent().equals(student.getIdStudent())){
+                JOptionPane.showMessageDialog((JFrame)null, "Mã sinh viên đã tồn tại");
+                return;
+            }
+        }
+        
+        //add for list
+        lstStudent.add(student);
+        
+        //writing file
+        String strGender = (student.getGENDER())? "Nam": "Nữ";
+        fw.write(student.getIdStudent() + "," + student.getNAME() + "," +
+                 strGender + "," + student.getID() + '\n');
+        fw.close();
     }
 }
