@@ -7,6 +7,7 @@ package View;
 
 import Controller.LoginColtroller;
 import Controller.StudentController;
+import Controller.SubjectController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -28,6 +29,8 @@ public class FrHome extends JFrame implements ActionListener{
     private JButton btnImportListStudent;
     private JButton btnShowListStudent;
     private JFileChooser openFile;
+    private JButton btnImportTimetable;
+    private JButton btnShowListTimetable;
     
     public FrHome() {
 //        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
@@ -47,15 +50,25 @@ public class FrHome extends JFrame implements ActionListener{
         
         add(panel);
         
-        btnImportListStudent = new JButton("Import Student");
-        btnImportListStudent.setBounds(10,20,80,25);
-        btnImportListStudent.addActionListener(this);
-        panel.add(btnImportListStudent);
+        this.btnImportListStudent = new JButton("Import SV");
+        this.btnImportListStudent.setBounds(10,20,80,25);
+        this.btnImportListStudent.addActionListener(this);
+        panel.add(this.btnImportListStudent);
         
-        btnShowListStudent = new JButton("Show list Student");
-        btnShowListStudent.setBounds(100,20,165,25);
-        btnShowListStudent.addActionListener(this);
-        panel.add(btnShowListStudent);
+        this.btnShowListStudent = new JButton("Xem DS SV");
+        this.btnShowListStudent.setBounds(100,20,165,25);
+        this.btnShowListStudent.addActionListener(this);
+        panel.add(this.btnShowListStudent);
+        
+        this.btnImportTimetable = new JButton("Import TKB");
+        this.btnImportTimetable.setBounds(10,50,165,25);
+        this.btnImportTimetable.addActionListener(this);
+        panel.add(this.btnImportTimetable);
+        
+        this.btnShowListTimetable = new JButton("Xem TKB");
+        this.btnShowListTimetable.setBounds(100,50,165,25);
+        this.btnShowListTimetable.addActionListener(this);
+        panel.add(this.btnShowListTimetable);
     }
     
     public static void main(String[] args) {
@@ -66,14 +79,28 @@ public class FrHome extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e)  {
         if (e.getSource().equals(btnImportListStudent)){
             try {
-                onClickBtnImportListStudent();
+                this.onClickBtnImportListStudent();
             } catch (IOException ex) {
                 Logger.getLogger(FrHome.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         else if (e.getSource().equals(btnShowListStudent)){
             try {
-                onClickBtnShowListStudent();
+                this.onClickBtnShowListStudent();
+            } catch (IOException ex) {
+                Logger.getLogger(FrHome.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else if (e.getSource().equals(this.btnImportTimetable)){
+            try {
+                this.onClickBtnImportTimetable();
+            } catch (IOException ex) {
+                Logger.getLogger(FrHome.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else if (e.getSource().equals(this.btnShowListTimetable)){
+            try {
+                this.onClickBtnShowTimetable();
             } catch (IOException ex) {
                 Logger.getLogger(FrHome.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -81,7 +108,6 @@ public class FrHome extends JFrame implements ActionListener{
     }
     
     private void onClickBtnImportListStudent() throws IOException{
-        System.out.println("onClickBtnImportListStudent");
         this.openFile = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
         "*.csv", "csv");
@@ -103,4 +129,29 @@ public class FrHome extends JFrame implements ActionListener{
         frShow.setVisible(true);
         this.dispose();
     }
+    
+    private void onClickBtnImportTimetable() throws IOException{
+        this.openFile = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+        "*.csv", "csv");
+        this.openFile.setAcceptAllFileFilterUsed(false);
+        openFile.setFileFilter(filter);
+        String approveButtonText = null;
+        int returnVal;
+        returnVal = openFile.showDialog(this, approveButtonText);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+           System.out.println("You chose to open this file: " +
+                openFile.getSelectedFile().getCanonicalPath());
+            SubjectController subjectCtr = new SubjectController();
+            subjectCtr.ImportFileSubject(openFile.getSelectedFile().getCanonicalPath());
+        }
+    }
+    
+    
+    private void onClickBtnShowTimetable() throws IOException{
+        FrShowListSubject frShow = new FrShowListSubject();
+        frShow.setVisible(true);
+        this.dispose();
+    }
+    
 }

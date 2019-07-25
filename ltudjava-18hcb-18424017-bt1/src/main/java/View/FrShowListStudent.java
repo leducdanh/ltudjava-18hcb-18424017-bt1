@@ -46,15 +46,13 @@ import javax.swing.event.ListSelectionListener;
  */
 public class FrShowListStudent extends JFrame implements ActionListener{
     String[] ColumnName = {"Stt", "Mã sinh viên", "Họ tên", "Giới tính", "CMND"};
-
-    
     private HashMap<String, ArrayList<Student>> ListStudentByClass = new HashMap<String, ArrayList<Student>>();
     
     JPanel panel = new JPanel();
     JTable table = new JTable();
     JScrollPane sp = new JScrollPane(table);
     DefaultTableModel tableModel = new DefaultTableModel();
-    JComboBox cmbListNameClass; 
+    JComboBox cmbListNameClass;
     ArrayList<String> LstItemCmb= new ArrayList<String>();  
     JTextField txtIDStudent = new JTextField();
     JTextField txtNameStudent = new JTextField();
