@@ -27,9 +27,12 @@ import Controller.StudentController;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.ComboBoxModel;
 import javax.swing.GroupLayout.Group;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -58,8 +61,9 @@ public class FrShowListStudent extends JFrame implements ActionListener{
     JTextField txtID = new JTextField();
     JRadioButton rdbMale=new JRadioButton("Nam", true);  
     JRadioButton rdbFemale=new JRadioButton("Nữ");  
-
     ButtonGroup grGender=new ButtonGroup();  
+    
+    JButton btnAddStudent;
     
     public FrShowListStudent() throws IOException {
         LstItemCmb.add("");
@@ -118,6 +122,8 @@ public class FrShowListStudent extends JFrame implements ActionListener{
             public void actionPerformed(ActionEvent event) {
                 JComboBox comboBox = (JComboBox) event.getSource();
                 Object selected = comboBox.getSelectedItem();
+                
+                table.getSelectionModel().clearSelection();
                 ShowListStudent(selected.toString());
             }
         });
@@ -167,6 +173,11 @@ public class FrShowListStudent extends JFrame implements ActionListener{
                 }
             }
         });
+        
+        this.btnAddStudent = new JButton("Them SV");
+        this.btnAddStudent.setBounds(10,170,100,25);
+        this.btnAddStudent.addActionListener(this);
+        this.panel.add(this.btnAddStudent);
     }
     
     // show List student
@@ -180,6 +191,7 @@ public class FrShowListStudent extends JFrame implements ActionListener{
     }
     
     public void ShowListStudent(String Key){
+        this.isFocusCycleRoot(this.cmbListNameClass);
         this.tableModel.getDataVector().removeAllElements();
         if (this.ListStudentByClass.get(Key) == null) {
             this.table.setModel(tableModel);
@@ -214,5 +226,31 @@ public class FrShowListStudent extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(this.btnAddStudent)){
+            StudentController STctl = new StudentController();
+            Student student = new Student(this.txtIDStudent.getText(),
+                                          this.txtNameStudent.getText(), 
+                                          this.rdbMale.isSelected(), 
+                                          this.txtID.getText());
+            
+            String nameClass = this.cmbListNameClass.getSelectedItem().toString();
+            boolean isAddSuccess;
+            try {
+                isAddSuccess = STctl.AddStudent(student, nameClass, this.ListStudentByClass.get(nameClass));
+                if (isAddSuccess) {
+                    this.tableModel.addRow(new String[]{
+                                            "" + this.ListStudentByClass.get(nameClass).size(),
+                                            student.getIdStudent(),
+                                            student.getNAME(),
+                                            (student.getGENDER()) ? "Nam": "Nữ",
+                                            student.getID()});
+                    this.table.setModel(tableModel);
+                }
+                
+            } catch (IOException ex) {
+                Logger.getLogger(FrShowListStudent.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
+    
 }

@@ -81,15 +81,15 @@ public class StudentController {
         fwListNameClass.close();
     }
     
-    public void AddStudent(Student student, String nameClass, ArrayList<Student> lstStudent) throws FileNotFoundException, IOException{
+    public boolean AddStudent(Student student, String nameClass, ArrayList<Student> lstStudent) throws FileNotFoundException, IOException{
         //write file
-        FileWriter fw = new FileWriter("Data/" + nameClass + ".txt");
+        FileWriter fw = new FileWriter("Data/" + nameClass + ".txt", true);
         
         //check exist IdStudent
         for (Student st : lstStudent){
             if (st.getIdStudent().equals(student.getIdStudent())){
                 JOptionPane.showMessageDialog((JFrame)null, "Mã sinh viên đã tồn tại");
-                return;
+                return false;
             }
         }
         
@@ -101,5 +101,6 @@ public class StudentController {
         fw.write(student.getIdStudent() + "," + student.getNAME() + "," +
                  strGender + "," + student.getID() + '\n');
         fw.close();
+        return true;
     }
 }

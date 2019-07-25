@@ -15,6 +15,16 @@ public class Student {
     protected Boolean _GENDER; //True: Nam , False: Nu
     protected String _ID;
 
+    public Student(){
+    }
+    
+    public Student(String idSt, String name, boolean gender, String ID){
+        this._IdStudent = idSt;
+        this._NAME = name;
+        this._GENDER = gender;
+        this._ID = ID;
+    }
+    
     public String getIdStudent() {
         return _IdStudent;
     }
