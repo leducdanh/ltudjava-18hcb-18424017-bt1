@@ -33,6 +33,9 @@ import javax.swing.GroupLayout.Group;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -45,8 +48,8 @@ public class FrShowListStudent extends JFrame implements ActionListener{
     private HashMap<String, ArrayList<Student>> ListStudentByClass = new HashMap<String, ArrayList<Student>>();
     
     JPanel panel = new JPanel();
-    JTable tb = new JTable();
-    JScrollPane sp = new JScrollPane(tb);
+    JTable table = new JTable();
+    JScrollPane sp = new JScrollPane(table);
     DefaultTableModel tableModel = new DefaultTableModel();
     JComboBox cmbListNameClass; 
     ArrayList<String> LstItemCmb= new ArrayList<String>();  
@@ -89,7 +92,7 @@ public class FrShowListStudent extends JFrame implements ActionListener{
         this.LoadData();
         this.ShowListStudent(this.cmbListNameClass.getSelectedItem().toString());
         
-        TableColumnModel columnModel = tb.getColumnModel();
+        TableColumnModel columnModel = table.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(50);
         columnModel.getColumn(1).setPreferredWidth(100);
         columnModel.getColumn(2).setPreferredWidth(200);
@@ -146,6 +149,24 @@ public class FrShowListStudent extends JFrame implements ActionListener{
         this.grGender.add(this.rdbMale);grGender.add(this.rdbFemale);
         this.rdbMale.isSelected( );
         this.panel.add(this.rdbMale);panel.add(this.rdbFemale);
+        
+        ListSelectionModel model = this.table.getSelectionModel();
+        model.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (! model.isSelectionEmpty()){
+                    txtIDStudent.setText(table.getValueAt(table.getSelectedRow(), 1).toString());
+                    txtNameStudent.setText(table.getValueAt(table.getSelectedRow(), 2).toString());
+                    txtID.setText(table.getValueAt(table.getSelectedRow(), 4).toString());
+                    
+                    if (table.getValueAt(table.getSelectedRow(), 3).toString().toLowerCase().equals("nam")){
+                        rdbMale.setSelected(true);
+                    } else {
+                        rdbFemale.setSelected(true);
+                    }
+                }
+            }
+        });
     }
     
     // show List student
@@ -161,7 +182,7 @@ public class FrShowListStudent extends JFrame implements ActionListener{
     public void ShowListStudent(String Key){
         this.tableModel.getDataVector().removeAllElements();
         if (this.ListStudentByClass.get(Key) == null) {
-            this.tb.setModel(tableModel);
+            this.table.setModel(tableModel);
             return;
         }
         int index = 0;
@@ -170,7 +191,7 @@ public class FrShowListStudent extends JFrame implements ActionListener{
             String strGender = (student.getGENDER())? "Nam": "Nữ";
             this.tableModel.addRow(new String[]{ "" + index, student.getIdStudent(), student.getNAME(), strGender, student.getID()});
         }
-        this.tb.setModel(tableModel);
+        this.table.setModel(tableModel);
     }
     
     
