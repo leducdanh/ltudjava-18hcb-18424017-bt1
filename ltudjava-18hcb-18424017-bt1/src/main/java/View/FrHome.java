@@ -6,6 +6,7 @@
 package View;
 
 import Controller.LoginColtroller;
+import Controller.ScoreController;
 import Controller.StudentController;
 import Controller.SubjectController;
 import java.awt.event.ActionEvent;
@@ -31,6 +32,8 @@ public class FrHome extends JFrame implements ActionListener{
     private JFileChooser openFile;
     private JButton btnImportTimetable;
     private JButton btnShowListTimetable;
+    private JButton btnImportScores;
+    private JButton btnShowListScores;
     
     public FrHome() {
 //        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
@@ -69,6 +72,16 @@ public class FrHome extends JFrame implements ActionListener{
         this.btnShowListTimetable.setBounds(100,50,165,25);
         this.btnShowListTimetable.addActionListener(this);
         panel.add(this.btnShowListTimetable);
+        
+        this.btnImportScores = new JButton("Import Diem");
+        this.btnImportScores.setBounds(10,110,165,25);
+        this.btnImportScores.addActionListener(this);
+        panel.add(this.btnImportScores);
+        
+        this.btnShowListScores = new JButton("Xem Diem");
+        this.btnShowListScores.setBounds(100,110,165,25);
+        this.btnShowListScores.addActionListener(this);
+        panel.add(this.btnShowListScores);
     }
     
     public static void main(String[] args) {
@@ -101,6 +114,20 @@ public class FrHome extends JFrame implements ActionListener{
         else if (e.getSource().equals(this.btnShowListTimetable)){
             try {
                 this.onClickBtnShowTimetable();
+            } catch (IOException ex) {
+                Logger.getLogger(FrHome.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else if (e.getSource().equals(this.btnImportScores)){
+            try {
+                this.onClickBtnImportScore();
+            } catch (IOException ex) {
+                Logger.getLogger(FrHome.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else if (e.getSource().equals(this.btnShowListScores)){
+            try {
+                this.onClickBtnShowScore();
             } catch (IOException ex) {
                 Logger.getLogger(FrHome.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -150,6 +177,31 @@ public class FrHome extends JFrame implements ActionListener{
     
     private void onClickBtnShowTimetable() throws IOException{
         FrShowListSubject frShow = new FrShowListSubject();
+        frShow.setVisible(true);
+        this.dispose();
+    }
+    
+    
+    private void onClickBtnImportScore() throws IOException{
+        this.openFile = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+        "*.csv", "csv");
+        this.openFile.setAcceptAllFileFilterUsed(false);
+        openFile.setFileFilter(filter);
+        String approveButtonText = null;
+        int returnVal;
+        returnVal = openFile.showDialog(this, approveButtonText);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+           System.out.println("You chose to open this file: " +
+                openFile.getSelectedFile().getCanonicalPath());
+            ScoreController scoreCtr = new ScoreController();
+            scoreCtr.ImportFileScores(openFile.getSelectedFile().getCanonicalPath());
+        }
+    }
+    
+    
+    private void onClickBtnShowScore() throws IOException{
+        FrShowListScores frShow = new FrShowListScores();
         frShow.setVisible(true);
         this.dispose();
     }

@@ -55,9 +55,6 @@ public class StudentController {
     public void ImportFileClass(String pathFile) throws FileNotFoundException, IOException{
         FileReader fr = new FileReader(pathFile);
         
-        //file save list student of class
-        FileWriter fw = new FileWriter(pathFile.replaceAll("csv", "txt"));
-        
         //write name class for file listNameClass.csv
         FileWriter fwListNameClass = new FileWriter("Data/listNameClass.csv", true);
         
@@ -66,6 +63,7 @@ public class StudentController {
         
         String nameClass = br.readLine();
         fwListNameClass.write(nameClass + '\n');
+        FileWriter fw = new FileWriter("Data/" + nameClass + "_Timetable.txt");
         fw.write(nameClass + '\n');
         while (true){
             Student st = new Student();

@@ -5,9 +5,8 @@
  */
 package View;
 
-import Controller.StudentController;
-import Controller.SubjectController;
-import Model.Student;
+import Controller.ScoreController;
+import Model.Scores;
 import Model.Subject;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,20 +30,20 @@ import javax.swing.table.TableColumnModel;
  *
  * @author danh
  */
-public class FrShowListSubject extends JFrame implements ActionListener{
-    
-    String[] ColumnName = {"Stt", "Mã môn", "Tên môn", "Phòng học"};
-    private HashMap<String, ArrayList<Subject>> ListSubject = new HashMap<String, ArrayList<Subject>>();
+public class FrShowListScores extends JFrame implements ActionListener{
+    String[] ColumnName = {"Stt", "MSSV", "Họ tên", "Điểm GK", "Điểm CK", "Điểm khác", "Điểm tổng"};
+    private HashMap<String, ArrayList<Scores>> ListScores = new HashMap<String, ArrayList<Scores>>();
     JPanel panel = new JPanel();
     JTable table = new JTable();
     JScrollPane sp = new JScrollPane(table);
     DefaultTableModel tableModel = new DefaultTableModel();
-    JComboBox cmbListNameClass;
-    ArrayList<String> LstItemCmb= new ArrayList<String>();  
+    JComboBox cmbListNameSubject;
+    ArrayList<String> LstItemCmb= new ArrayList<String>();
     
-    public FrShowListSubject() throws IOException {
+    public FrShowListScores() throws IOException{
         LstItemCmb.add("");
         this.InitFrame();
+        
         //event Closing Frame
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -53,7 +52,7 @@ public class FrShowListSubject extends JFrame implements ActionListener{
             }
         });
         
-        this.ShowTimetable(this.cmbListNameClass.getSelectedItem().toString());
+        this.ShowScores(this.cmbListNameSubject.getSelectedItem().toString());
         TableColumnModel columnModel = table.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(50);
         columnModel.getColumn(1).setPreferredWidth(100);
@@ -72,18 +71,18 @@ public class FrShowListSubject extends JFrame implements ActionListener{
         sp.setBounds(0,300,600,300);
         panel.add(this.sp);
         Collections.sort(this.LstItemCmb);
-        this.cmbListNameClass =new JComboBox(this.LstItemCmb.toArray());
-        cmbListNameClass.setBounds(10,20,150,25);
-        cmbListNameClass.addActionListener(new ActionListener() {
+        this.cmbListNameSubject =new JComboBox(this.LstItemCmb.toArray());
+        cmbListNameSubject.setBounds(10,20,150,25);
+        cmbListNameSubject.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 JComboBox comboBox = (JComboBox) event.getSource();
                 Object selected = comboBox.getSelectedItem();
                 
                 table.getSelectionModel().clearSelection();
-                ShowTimetable(selected.toString());
+                ShowScores(selected.toString());
             }
         });
-        panel.add(cmbListNameClass);
+        panel.add(cmbListNameSubject);
         
         add(panel);
         setSize(600, 600);
@@ -93,16 +92,16 @@ public class FrShowListSubject extends JFrame implements ActionListener{
     }
     
     private void LoadData() throws IOException {
-        SubjectController subjectCtl = new SubjectController();
+        ScoreController scoreCtl = new ScoreController();
         for (String  str: this.LstItemCmb){
-            subjectCtl.GetTimetable("Data/" + str +"_Timetable.txt", this.ListSubject);
+            scoreCtl.GetListScore("Data/" + str +"_Scores.txt", this.ListScores);
         }
     }
     
     public void GetItemCombobox(){
         try {
             System.out.println("GetItemCombobox");
-            FileReader fr = new FileReader("Data/listNameTimetable.csv");
+            FileReader fr = new FileReader("Data/listSubject.csv");
             BufferedReader br = new BufferedReader(fr);
             while (true){
                 String str = br.readLine();
@@ -116,28 +115,36 @@ public class FrShowListSubject extends JFrame implements ActionListener{
         }
     }
     
-    public void ShowTimetable(String Key){
-        this.isFocusCycleRoot(this.cmbListNameClass);
-        this.tableModel.getDataVector().removeAllElements();
-        if (this.ListSubject.get(Key) == null) {
+    public void ShowScores(String Key){
+        try {
+            this.isFocusCycleRoot(this.cmbListNameSubject);
+            this.tableModel.getDataVector().removeAllElements();
+            if (this.ListScores.get(Key) == null) {
+                this.table.setModel(tableModel);
+                return;
+            }
+            int index = 0;
+            for (Scores score : this.ListScores.get(Key)) {
+                index++;
+                this.tableModel.addRow(new String[]{ "" + index, score.getIdStudent(), score.getName(), 
+                                                    "" + score.getScoreMidSemester(),
+                                                    "" + score.getScoreEndSemester(),
+                                                    "" + score.getScoreplus(),
+                                                    "" + score.getScoreSummary(),
+                                                    });
+            }
             this.table.setModel(tableModel);
-            return;
+        } catch (Exception e) {
+            this.table.setModel(tableModel);
         }
-        int index = 0;
-        for (Subject subject : this.ListSubject.get(Key)) {
-            index++;
-            this.tableModel.addRow(new String[]{ "" + index, subject.getID(), subject.getNAME(), subject.getROOM()});
-        }
-        this.table.setModel(tableModel);
     }
     
     public static void main(String[] args) throws IOException {
-        new FrShowListSubject();
+        new FrShowListScores();
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent arg0) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }
