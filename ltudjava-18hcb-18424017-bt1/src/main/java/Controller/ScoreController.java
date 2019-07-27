@@ -15,6 +15,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,10 +39,10 @@ public class ScoreController {
 
                 score.setIdStudent(str.split(",")[0]); //set MSSV for student
                 score.setName(str.split(",")[1]);       //set Name for student
-                score.setScoreMidSemester(Float.parseFloat(str.split(",")[2])); //set score mid semester
-                score.setScoreEndSemester(Float.parseFloat(str.split(",")[3])); //set score end semester
-                score.setScoreplus(Float.parseFloat(str.split(",")[4]));        //set score plus
-                score.setScoreSummary(Float.parseFloat(str.split(",")[5]));     //set score summary
+                score.setScoreMidSemester((str.split(",")[2])); //set score mid semester
+                score.setScoreEndSemester((str.split(",")[3])); //set score end semester
+                score.setScoreplus((str.split(",")[4]));        //set score plus
+                score.setScoreSummary((str.split(",")[5]));     //set score summary
                 LstStudet.add(score);
 
             }
@@ -75,5 +77,57 @@ public class ScoreController {
         fr.close();
         fw.close();
         fwListSubject.close();
+    }
+    
+    public boolean UpdateScore(Scores score, String nameClass, ArrayList<Scores> lstScores) throws FileNotFoundException, IOException{
+        try {
+            //write file
+            FileReader fr = new FileReader("Data/" + nameClass + "_Scores.txt");
+
+            BufferedReader br = new BufferedReader(fr);
+            String oldInfo = "";
+            String data = "";
+            String newInfo = score.getIdStudent() + ","
+                            + score.getName() + ","
+                            + "" + score.getScoreMidSemester() + ","
+                            + "" + score.getScoreEndSemester() + ","
+                            + "" + score.getScoreplus() + ","
+                            + "" + score.getScoreSummary();
+            for (Scores st : lstScores){
+                if (st.getIdStudent().equals(score.getIdStudent())){
+                    oldInfo = st.getIdStudent() + ","
+                            + st.getName() + ","
+                            + "" + st.getScoreMidSemester() + ","
+                            + "" + st.getScoreEndSemester() + ","
+                            + "" + st.getScoreplus() + ","
+                            + "" + st.getScoreSummary();
+                    
+                    //upd list
+                    st.setScoreMidSemester(score.getScoreMidSemester());
+                    st.setScoreEndSemester(score.getScoreEndSemester());
+                    st.setScoreplus(score.getScoreplus());
+                    st.setScoreSummary(score.getScoreSummary());
+                    break;
+                }
+            }
+
+            while (true){
+                String str = br.readLine();
+                if (str == null)
+                    break;
+
+                data += str + "\r\n";
+
+            }
+            fr.close();
+
+            FileWriter fw = new FileWriter("Data/" + nameClass + "_Scores.txt");
+            data = data.replaceAll(oldInfo, newInfo);
+            fw.write(data);
+            fw.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

@@ -10,6 +10,7 @@ import Controller.StudentController;
 import Model.Scores;
 import Model.Student;
 import Model.Subject;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -53,10 +54,15 @@ public class FrShowListScores extends JFrame implements ActionListener{
     ArrayList<String> LstItemCmb= new ArrayList<String>();  
     JTextField txtIDStudent = new JTextField();
     JTextField txtNameStudent = new JTextField();
+    JTextField txtScoreMidSemester = new JTextField();
+    JTextField txtScoreEndSemester = new JTextField();
+    JTextField txtScoreplus = new JTextField();
+    JTextField txtScoreSummary = new JTextField();
     JLabel lblQtyPass = new JLabel();
     JLabel lblPercentPass = new JLabel();
     JLabel lblQtyFail = new JLabel();
     JLabel lblPercentFail = new JLabel();
+    JButton btnUpdate;
     
     public FrShowListScores() throws IOException{
         LstItemCmb.add("");
@@ -94,7 +100,7 @@ public class FrShowListScores extends JFrame implements ActionListener{
         panel.add(this.sp);
         Collections.sort(this.LstItemCmb);
         this.cmbListNameSubject =new JComboBox(this.LstItemCmb.toArray());
-        cmbListNameSubject.setBounds(10,20,150,25);
+        cmbListNameSubject.setBounds(10,10,150,25);
         cmbListNameSubject.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 JComboBox comboBox = (JComboBox) event.getSource();
@@ -107,20 +113,79 @@ public class FrShowListScores extends JFrame implements ActionListener{
         panel.add(cmbListNameSubject);
         
         this.lblQtyPass = new JLabel("Số SV đậu: ");
-        this.lblQtyPass.setBounds(10,50,100,25);
+        this.lblQtyPass.setBounds(10,40,100,25);
         panel.add(this.lblQtyPass);
         this.lblPercentPass = new JLabel("Chiếm: ");
-        this.lblPercentPass.setBounds(200,50,100,25);
+        this.lblPercentPass.setBounds(200,40,100,25);
         panel.add(this.lblPercentPass);
         
         this.lblQtyFail = new JLabel("Số SV rớt: ");
-        this.lblQtyFail.setBounds(10,75,100,25);
+        this.lblQtyFail.setBounds(10,65,100,25);
         panel.add(this.lblQtyFail);
         this.lblPercentFail = new JLabel("Chiếm: ");
-        this.lblPercentFail.setBounds(200,75,100,25);
+        this.lblPercentFail.setBounds(200,65,100,25);
         panel.add(this.lblPercentFail);
-//        this.txtIDStudent.setBounds(100,50,165,25);
-//        panel.add(this.txtIDStudent);
+        
+        JLabel lblIdStudent = new JLabel("Mã sinh viên");
+        lblIdStudent.setBounds(10,90,100,25);
+        panel.add(lblIdStudent);
+        this.txtIDStudent.setBounds(100,90,165,25);
+        this.txtIDStudent.setEnabled(false);
+        this.txtIDStudent.setDisabledTextColor(Color.BLACK);
+        panel.add(this.txtIDStudent);
+          
+        JLabel lblNameStudent = new JLabel("Tên sinh viên");
+        lblNameStudent.setBounds(10,115,100,25);
+        panel.add(lblNameStudent);
+        this.txtNameStudent.setBounds(100,115,165,25);
+        this.txtNameStudent.setEnabled(false);
+        this.txtNameStudent.setDisabledTextColor(Color.BLACK);
+        panel.add(this.txtNameStudent);
+        
+        JLabel lblScoreMidSemester = new JLabel("Điểm GK:");
+        lblScoreMidSemester.setBounds(10,140,100,25);
+        panel.add(lblScoreMidSemester);
+        this.txtScoreMidSemester.setBounds(100,140,165,25);
+        panel.add(this.txtScoreMidSemester);
+        
+        JLabel lblScoreEndSemester = new JLabel("Điểm CK:");
+        lblScoreEndSemester.setBounds(10,165,100,25);
+        panel.add(lblScoreEndSemester);
+        this.txtScoreEndSemester.setBounds(100,165,165,25);
+        panel.add(this.txtScoreEndSemester);
+        
+        JLabel lblScoreplus = new JLabel("Điểm khác:");
+        lblScoreplus.setBounds(10,190,100,25);
+        panel.add(lblScoreplus);
+        this.txtScoreplus.setBounds(100,190,165,25);
+        panel.add(this.txtScoreplus);
+        
+        JLabel lblScoreSummary = new JLabel("Điểm tổng:");
+        lblScoreSummary.setBounds(10,215,100,25);
+        panel.add(lblScoreSummary);
+        this.txtScoreSummary.setBounds(100,215,165,25);
+        panel.add(this.txtScoreSummary);
+        
+        this.btnUpdate = new JButton("Cập nhật");
+        this.btnUpdate.setBounds(10,250,100,25);
+        this.btnUpdate.addActionListener(this);
+        this.panel.add(this.btnUpdate);
+        
+        ListSelectionModel model = this.table.getSelectionModel();
+        model.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (! model.isSelectionEmpty()){
+                    txtIDStudent.setText(table.getValueAt(table.getSelectedRow(), 1).toString());
+                    txtNameStudent.setText(table.getValueAt(table.getSelectedRow(), 2).toString());
+                    txtScoreMidSemester.setText(table.getValueAt(table.getSelectedRow(), 3).toString());
+                    txtScoreEndSemester.setText(table.getValueAt(table.getSelectedRow(), 4).toString());
+                    txtScoreplus.setText(table.getValueAt(table.getSelectedRow(), 5).toString());
+                    txtScoreSummary.setText(table.getValueAt(table.getSelectedRow(), 6).toString());
+                    
+                }
+            }
+        });
         
         add(panel);
         setSize(600, 600);
@@ -166,13 +231,13 @@ public class FrShowListScores extends JFrame implements ActionListener{
             int percentPass = 0;
             for (Scores score : this.ListScores.get(Key)) {
                 index++;
-                qtyPass = (score.getScoreSummary() >= 5) ? ++qtyPass : qtyPass;
+                qtyPass = (Float.parseFloat(score.getScoreSummary()) >= 5) ? ++qtyPass : qtyPass;
                 this.tableModel.addRow(new String[]{ "" + index, score.getIdStudent(), score.getName(), 
                                                     "" + score.getScoreMidSemester(),
                                                     "" + score.getScoreEndSemester(),
                                                     "" + score.getScoreplus(),
                                                     "" + score.getScoreSummary(),
-                                                    (score.getScoreSummary() >= 5) ? "Đậu" : "Rớt"
+                                                    (Float.parseFloat(score.getScoreSummary()) >= 5) ? "Đậu" : "Rớt"
                                                     });
             }
             this.lblQtyPass.setText("");
@@ -197,8 +262,59 @@ public class FrShowListScores extends JFrame implements ActionListener{
         new FrShowListScores();
     }
 
+
     @Override
-    public void actionPerformed(ActionEvent arg0) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(this.btnUpdate)){
+            ScoreController scoreCtr = new ScoreController();
+            //value score
+            Scores score = new Scores(this.txtIDStudent.getText(),
+                                      this.txtNameStudent.getText(),
+                                      (this.txtScoreMidSemester.getText()),
+                                      (this.txtScoreEndSemester.getText()),
+                                      (this.txtScoreplus.getText()),
+                                      (this.txtScoreSummary.getText())
+                                    );
+            
+            //value nameClass
+            String nameClass = this.cmbListNameSubject.getSelectedItem().toString();
+            boolean isUpdSuccess;
+            try {
+                isUpdSuccess = scoreCtr.UpdateScore(score, nameClass, this.ListScores.get(nameClass));
+                if (isUpdSuccess){
+                    //edit row table
+                    this.tableModel.setValueAt(this.txtScoreMidSemester.getText(),
+                                                this.table.getSelectedRow(), 3);
+                    this.tableModel.setValueAt(this.txtScoreEndSemester.getText(),
+                                                this.table.getSelectedRow(), 4);
+                    this.tableModel.setValueAt(this.txtScoreplus.getText(),
+                                                this.table.getSelectedRow(), 5);
+                    this.tableModel.setValueAt(this.txtScoreSummary.getText(),
+                                                this.table.getSelectedRow(), 6);
+                    this.tableModel.setValueAt((Float.parseFloat(this.txtScoreSummary.getText()) >=5 ? "Đậu" : "Rớt"),
+                                                this.table.getSelectedRow(), 7);
+                    // edit StatisticalPassFail
+                    int qtyPass = 0;
+                    int percentPass = 0;
+                    for (int i = 0; i < this.ListScores.get(nameClass).size(); i++) {
+                        qtyPass = (Float.parseFloat(this.ListScores.get(nameClass).get(i).getScoreSummary()) >= 5) ? ++qtyPass : qtyPass;
+                    }
+                    this.lblQtyPass.setText("");
+                    this.lblQtyPass.setText("Số SV đậu: " + "" + qtyPass);
+                    percentPass = qtyPass * 100 / this.ListScores.get(nameClass).size();
+                    this.lblPercentPass.setText("");
+                    this.lblPercentPass.setText("Chiếm: : " + "" + percentPass + "%");
+
+                    this.lblQtyFail.setText("");
+                    this.lblQtyFail.setText("Số SV rớt: " + "" + (this.ListScores.get(nameClass).size() - qtyPass));
+                    percentPass = qtyPass * 100 / this.ListScores.get(nameClass).size();
+                    this.lblPercentFail.setText("");
+                    this.lblPercentFail.setText("Chiếm: : " + "" + (100 - percentPass) + "%");
+                    ///////////////////////////
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(FrShowListScores.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

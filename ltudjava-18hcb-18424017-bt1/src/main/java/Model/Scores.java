@@ -12,13 +12,15 @@ package Model;
 public class Scores {
     private String _IdStudent;
     private String _Name;
-    private float _ScoreMidSemester;
-    private float _ScoreEndSemester;
-    private float _Scoreplus;
+    private String _ScoreMidSemester;
+    private String _ScoreEndSemester;
+    private String _Scoreplus;
+    private String _ScoreSummary;
 
     public Scores() {
     }
-    public Scores(String _IdStudent, String _Name, float _ScoreMidSemester, float _ScoreEndSemester, float _Scoreplus, float _ScoreSummary) {
+
+    public Scores(String _IdStudent, String _Name, String _ScoreMidSemester, String _ScoreEndSemester, String _Scoreplus, String _ScoreSummary) {
         this._IdStudent = _IdStudent;
         this._Name = _Name;
         this._ScoreMidSemester = _ScoreMidSemester;
@@ -27,6 +29,7 @@ public class Scores {
         this._ScoreSummary = _ScoreSummary;
     }
 
+    
 
     public String getIdStudent() {
         return _IdStudent;
@@ -44,36 +47,36 @@ public class Scores {
         this._Name = _Name;
     }
 
-    public float getScoreMidSemester() {
+    public String getScoreMidSemester() {
         return _ScoreMidSemester;
     }
 
-    public void setScoreMidSemester(float _ScoreMidSemester) {
+    public void setScoreMidSemester(String _ScoreMidSemester) {
         this._ScoreMidSemester = _ScoreMidSemester;
     }
 
-    public float getScoreEndSemester() {
+    public String getScoreEndSemester() {
         return _ScoreEndSemester;
     }
 
-    public void setScoreEndSemester(float _ScoreEndSemester) {
+    public void setScoreEndSemester(String _ScoreEndSemester) {
         this._ScoreEndSemester = _ScoreEndSemester;
     }
 
-    public float getScoreplus() {
+    public String getScoreplus() {
         return _Scoreplus;
     }
 
-    public void setScoreplus(float _Scoreplus) {
+    public void setScoreplus(String _Scoreplus) {
         this._Scoreplus = _Scoreplus;
     }
 
-    public float getScoreSummary() {
+    public String getScoreSummary() {
         return _ScoreSummary;
     }
 
-    public void setScoreSummary(float _ScoreSummary) {
+    public void setScoreSummary(String _ScoreSummary) {
         this._ScoreSummary = _ScoreSummary;
     }
-    private float _ScoreSummary;
+
 }
