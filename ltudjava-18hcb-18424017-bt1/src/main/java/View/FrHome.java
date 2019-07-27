@@ -34,6 +34,7 @@ public class FrHome extends JFrame implements ActionListener{
     private JButton btnShowListTimetable;
     private JButton btnImportScores;
     private JButton btnShowListScores;
+    private JButton btnChangePass;
     
     public FrHome() {
 //        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
@@ -54,34 +55,39 @@ public class FrHome extends JFrame implements ActionListener{
         add(panel);
         
         this.btnImportListStudent = new JButton("Import SV");
-        this.btnImportListStudent.setBounds(10,20,80,25);
+        this.btnImportListStudent.setBounds(100,20,80,25);
         this.btnImportListStudent.addActionListener(this);
         panel.add(this.btnImportListStudent);
         
         this.btnShowListStudent = new JButton("Xem DS SV");
-        this.btnShowListStudent.setBounds(100,20,165,25);
+        this.btnShowListStudent.setBounds(100,50,165,25);
         this.btnShowListStudent.addActionListener(this);
         panel.add(this.btnShowListStudent);
         
         this.btnImportTimetable = new JButton("Import TKB");
-        this.btnImportTimetable.setBounds(10,50,165,25);
+        this.btnImportTimetable.setBounds(100,80,165,25);
         this.btnImportTimetable.addActionListener(this);
         panel.add(this.btnImportTimetable);
         
         this.btnShowListTimetable = new JButton("Xem TKB");
-        this.btnShowListTimetable.setBounds(100,50,165,25);
+        this.btnShowListTimetable.setBounds(100,110,165,25);
         this.btnShowListTimetable.addActionListener(this);
         panel.add(this.btnShowListTimetable);
         
-        this.btnImportScores = new JButton("Import Diem");
-        this.btnImportScores.setBounds(10,110,165,25);
+        this.btnImportScores = new JButton("Import Điểm");
+        this.btnImportScores.setBounds(100,140,165,25);
         this.btnImportScores.addActionListener(this);
         panel.add(this.btnImportScores);
         
-        this.btnShowListScores = new JButton("Xem Diem");
-        this.btnShowListScores.setBounds(100,110,165,25);
+        this.btnShowListScores = new JButton("Xem Điểm");
+        this.btnShowListScores.setBounds(100,170,165,25);
         this.btnShowListScores.addActionListener(this);
         panel.add(this.btnShowListScores);
+        
+        this.btnChangePass = new JButton("Đổi mật khẩu");
+        this.btnChangePass.setBounds(100,200,165,25);
+        this.btnChangePass.addActionListener(this);
+        panel.add(this.btnChangePass);
     }
     
     public static void main(String[] args) {
@@ -128,6 +134,13 @@ public class FrHome extends JFrame implements ActionListener{
         else if (e.getSource().equals(this.btnShowListScores)){
             try {
                 this.onClickBtnShowScore();
+            } catch (IOException ex) {
+                Logger.getLogger(FrHome.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else if (e.getSource().equals(this.btnChangePass)){
+            try {
+                this.onClickBtnChangePass();
             } catch (IOException ex) {
                 Logger.getLogger(FrHome.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -202,6 +215,12 @@ public class FrHome extends JFrame implements ActionListener{
     
     private void onClickBtnShowScore() throws IOException{
         FrShowListScores frShow = new FrShowListScores();
+        frShow.setVisible(true);
+        this.dispose();
+    }
+    
+    private void onClickBtnChangePass() throws IOException{
+        FrChangePass frShow = new FrChangePass();
         frShow.setVisible(true);
         this.dispose();
     }

@@ -5,8 +5,10 @@
  */
 package Controller;
 
+import Model.Scores;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -34,6 +36,36 @@ public class LoginColtroller {
                 return true;
             }
                 
+        }
+    }
+    
+    public static boolean ChangePass(String newPass) throws IOException{
+        try {
+            //write file
+            FileReader fr = new FileReader("Data/accountTeacher.csv");
+
+            BufferedReader br = new BufferedReader(fr);
+            String oldInfo = LoginColtroller.Username + " " + LoginColtroller.Pass;
+            String data = "";
+            String newInfo = LoginColtroller.Username + " " + newPass;
+
+            while (true){
+                String str = br.readLine();
+                if (str == null)
+                    break;
+
+                data += str + "\r\n";
+
+            }
+            fr.close();
+
+            FileWriter fw = new FileWriter("Data/accountTeacher.csv");
+            data = data.replaceAll(oldInfo, newInfo);
+            fw.write(data);
+            fw.close();
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 }
