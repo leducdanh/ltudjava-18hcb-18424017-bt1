@@ -65,7 +65,6 @@ public class ScoreController {
         FileWriter fw = new FileWriter("Data/" + nameSubject + "_Scores.txt");
         fw.write(nameSubject + '\n');
         while (true){
-            Student st = new Student();
             String str = br.readLine();
             if (str == null)
                 break;

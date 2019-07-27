@@ -16,6 +16,8 @@ public class Scores {
     private float _ScoreEndSemester;
     private float _Scoreplus;
 
+    public Scores() {
+    }
     public Scores(String _IdStudent, String _Name, float _ScoreMidSemester, float _ScoreEndSemester, float _Scoreplus, float _ScoreSummary) {
         this._IdStudent = _IdStudent;
         this._Name = _Name;
@@ -25,8 +27,6 @@ public class Scores {
         this._ScoreSummary = _ScoreSummary;
     }
 
-    public Scores() {
-    }
 
     public String getIdStudent() {
         return _IdStudent;
