@@ -35,6 +35,7 @@ public class FrHome extends JFrame implements ActionListener{
     private JButton btnImportScores;
     private JButton btnShowListScores;
     private JButton btnChangePass;
+    private JButton btnShowScore;
     
     public FrHome() {
 //        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
@@ -51,11 +52,14 @@ public class FrHome extends JFrame implements ActionListener{
     
     public void CreateFrHome() {
         JPanel panel = new JPanel();
-        
+        panel.setLayout(null);
+        JPanel panelStudent = new JPanel();
+        panelStudent.setLayout(null);
         add(panel);
+        add(panelStudent);
         
         this.btnImportListStudent = new JButton("Import SV");
-        this.btnImportListStudent.setBounds(100,20,80,25);
+        this.btnImportListStudent.setBounds(100,20,165,25);
         this.btnImportListStudent.addActionListener(this);
         panel.add(this.btnImportListStudent);
         
@@ -79,15 +83,25 @@ public class FrHome extends JFrame implements ActionListener{
         this.btnImportScores.addActionListener(this);
         panel.add(this.btnImportScores);
         
-        this.btnShowListScores = new JButton("Xem Điểm");
+        this.btnShowListScores = new JButton("Xem Điểm MH");
         this.btnShowListScores.setBounds(100,170,165,25);
         this.btnShowListScores.addActionListener(this);
         panel.add(this.btnShowListScores);
+        panelStudent.add(this.btnShowListScores);
         
         this.btnChangePass = new JButton("Đổi mật khẩu");
         this.btnChangePass.setBounds(100,200,165,25);
         this.btnChangePass.addActionListener(this);
         panel.add(this.btnChangePass);
+        panelStudent.add(this.btnChangePass);
+        
+        if (LoginColtroller.Username.indexOf("giaovu") != -1){
+            panel.setVisible(true);
+            panelStudent.setVisible(false);
+        } else {
+            panel.setVisible(false);
+            panelStudent.setVisible(true);
+        }
     }
     
     public static void main(String[] args) {
