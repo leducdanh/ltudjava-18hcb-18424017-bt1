@@ -7,6 +7,7 @@ package View;
 
 import Controller.ScoreController;
 import Model.Scores;
+import Model.Student;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +18,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,7 +40,7 @@ import javax.swing.table.TableColumnModel;
  *
  * @author danh
  */
-public class FrShowListScores extends JFrame implements ActionListener{
+public class FrShowListScores extends JFrame implements ActionListener, Comparator<Scores>{
     String[] ColumnName = {"Stt", "MSSV", "Họ tên", "Điểm GK", "Điểm CK", "Điểm khác", "Điểm tổng", "Đậu/Rớt"};
     private HashMap<String, ArrayList<Scores>> ListScores = new HashMap<String, ArrayList<Scores>>();
     JPanel panel = new JPanel();
@@ -218,6 +220,7 @@ public class FrShowListScores extends JFrame implements ActionListener{
         try {
             this.isFocusCycleRoot(this.cmbListNameSubject);
             this.tableModel.getDataVector().removeAllElements();
+            this.tableModel.addRow(new String[] {});
             if (this.ListScores.get(Key) == null) {
                 this.table.setModel(tableModel);
                 return;
@@ -225,6 +228,9 @@ public class FrShowListScores extends JFrame implements ActionListener{
             int index = 0;
             int qtyPass = 0;
             int percentPass = 0;
+            this.tableModel.getDataVector().removeAllElements();
+            Comparator<Scores> compareById = (Scores o1, Scores o2) -> o1.getIdStudent().compareTo( o2.getIdStudent() );
+            Collections.sort(this.ListScores.get(Key), compareById);
             for (Scores score : this.ListScores.get(Key)) {
                 index++;
                 qtyPass = (Float.parseFloat(score.getScoreSummary()) >= 5) ? ++qtyPass : qtyPass;
@@ -312,5 +318,10 @@ public class FrShowListScores extends JFrame implements ActionListener{
                 Logger.getLogger(FrShowListScores.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    @Override
+    public int compare(Scores score1, Scores score2) {
+        return score1.getIdStudent().compareTo(score2.getIdStudent());
     }
 }

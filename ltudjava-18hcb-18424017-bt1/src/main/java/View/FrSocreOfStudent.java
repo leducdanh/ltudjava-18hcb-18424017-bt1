@@ -7,6 +7,7 @@ package View;
 
 import Controller.ScoreSubjectOfStudentController;
 import Model.ScoreSubjectOfStudent;
+import Model.Student;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -16,6 +17,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -27,7 +29,7 @@ import javax.swing.table.TableColumnModel;
  *
  * @author danh
  */
-public class FrSocreOfStudent extends JFrame implements ActionListener{
+public class FrSocreOfStudent extends JFrame implements ActionListener, Comparator<ScoreSubjectOfStudent>{
     String[] ColumnName = {"Stt", "Mã môn", "Tên môn", "Điểm GK", "Điểm CK", "Điểm khác", "Điểm tổng"};
     private  ArrayList<ScoreSubjectOfStudent> LstScoreSubjectOfStudent = new  ArrayList<ScoreSubjectOfStudent>();
     JPanel panel = new JPanel();
@@ -103,6 +105,9 @@ public class FrSocreOfStudent extends JFrame implements ActionListener{
     public void ShowListScoreBySubject(){
         this.tableModel.getDataVector().removeAllElements();
         int index = 0;
+        Comparator<ScoreSubjectOfStudent> compareById = (ScoreSubjectOfStudent o1, ScoreSubjectOfStudent o2) 
+                                          -> o1.getIdSubject().compareTo( o2.getIdSubject() );
+        Collections.sort(this.LstScoreSubjectOfStudent, compareById);
         for (ScoreSubjectOfStudent subject : this.LstScoreSubjectOfStudent) {
             index++;
             this.tableModel.addRow(new String[]{ "" + index, subject.getIdSubject(), 
@@ -123,5 +128,10 @@ public class FrSocreOfStudent extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent arg0) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int compare(ScoreSubjectOfStudent arg0, ScoreSubjectOfStudent arg1) {
+        return arg0.getIdSubject().compareTo(arg1.getIdSubject());
     }
 }

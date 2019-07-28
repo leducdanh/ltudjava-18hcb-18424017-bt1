@@ -25,6 +25,7 @@ import Controller.StudentController;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
@@ -40,7 +41,7 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author danh
  */
-public class FrShowListStudent extends JFrame implements ActionListener{
+public class FrShowListStudent extends JFrame implements ActionListener, Comparator<Student>{
     String[] ColumnName = {"Stt", "Mã sinh viên", "Họ tên", "Giới tính", "CMND"};
     private HashMap<String, ArrayList<Student>> ListStudentByClass = new HashMap<String, ArrayList<Student>>();
     
@@ -188,11 +189,16 @@ public class FrShowListStudent extends JFrame implements ActionListener{
     public void ShowListStudent(String Key){
         this.isFocusCycleRoot(this.cmbListNameClass);
         this.tableModel.getDataVector().removeAllElements();
+        this.tableModel.addRow(new String[] {});
         if (this.ListStudentByClass.get(Key) == null) {
             this.table.setModel(tableModel);
             return;
         }
         int index = 0;
+        Comparator<Student> compareById = (Student o1, Student o2) -> o1.getIdStudent().compareTo( o2.getIdStudent() );
+        Collections.sort(this.ListStudentByClass.get(Key), compareById);
+        
+        this.tableModel.getDataVector().removeAllElements();
         for (Student student : this.ListStudentByClass.get(Key)) {
             index++;
             String strGender = (student.getGENDER())? "Nam": "Nữ";
@@ -246,6 +252,11 @@ public class FrShowListStudent extends JFrame implements ActionListener{
                 Logger.getLogger(FrShowListStudent.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    @Override
+    public int compare(Student st1, Student st2) {
+        return st1.getID().compareTo(st2.getID());
     }
     
 }

@@ -6,6 +6,7 @@
 package View;
 
 import Controller.SubjectController;
+import Model.ScoreSubjectOfStudent;
 import Model.Subject;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -29,7 +31,7 @@ import javax.swing.table.TableColumnModel;
  *
  * @author danh
  */
-public class FrShowListSubject extends JFrame implements ActionListener{
+public class FrShowListSubject extends JFrame implements ActionListener, Comparator<Subject>{
     
     String[] ColumnName = {"Stt", "Mã môn", "Tên môn", "Phòng học"};
     private HashMap<String, ArrayList<Subject>> ListSubject = new HashMap<String, ArrayList<Subject>>();
@@ -118,11 +120,16 @@ public class FrShowListSubject extends JFrame implements ActionListener{
     public void ShowTimetable(String Key){
         this.isFocusCycleRoot(this.cmbListNameClass);
         this.tableModel.getDataVector().removeAllElements();
+        this.tableModel.addRow(new String[] {});
         if (this.ListSubject.get(Key) == null) {
             this.table.setModel(tableModel);
             return;
         }
         int index = 0;
+        this.tableModel.getDataVector().removeAllElements();
+        Comparator<Subject> compareById = (Subject o1, Subject o2) 
+                                          -> o1.getID().compareTo( o2.getID());
+        Collections.sort(this.ListSubject.get(Key), compareById);
         for (Subject subject : this.ListSubject.get(Key)) {
             index++;
             this.tableModel.addRow(new String[]{ "" + index, subject.getID(), subject.getNAME(), subject.getROOM()});
@@ -137,6 +144,11 @@ public class FrShowListSubject extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent arg0) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int compare(Subject arg0, Subject arg1) {
+        return arg0.getID().compareTo(arg1.getID());
     }
     
 }
