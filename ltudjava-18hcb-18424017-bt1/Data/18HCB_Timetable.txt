@@ -1,3 +1,0 @@
-18HCB
-18HCB-CT001,Thiết kế giao diện,C32
-18HCB-CT002,Kiểm chứng phần mềm,C32

@@ -58,12 +58,15 @@ public class StudentController {
         //write name class for file listNameClass.csv
         FileWriter fwListNameClass = new FileWriter("Data/listNameClass.csv", true);
         
+        //write name class for file accountTeacher.csv
+        FileWriter fwAccount = new FileWriter("Data/accountTeacher.csv", true);
+        
         BufferedReader br = new BufferedReader(fr);
         ArrayList<Student> LstStudet = new ArrayList<Student>();
         
         String nameClass = br.readLine();
         fwListNameClass.write(nameClass + '\n');
-        FileWriter fw = new FileWriter("Data/" + nameClass + "_Timetable.txt");
+        FileWriter fw = new FileWriter("Data/" + nameClass + ".txt");
         fw.write(nameClass + '\n');
         while (true){
             Student st = new Student();
@@ -72,11 +75,13 @@ public class StudentController {
                 break;
             
             fw.write(str + '\n');
+            fwAccount.write(str.split(",")[0] + " " + str.split(",")[0] + '\n');
 
         }
         fr.close();
         fw.close();
         fwListNameClass.close();
+        fwAccount.close();
     }
     
     public boolean AddStudent(Student student, String nameClass, ArrayList<Student> lstStudent) throws FileNotFoundException, IOException{
