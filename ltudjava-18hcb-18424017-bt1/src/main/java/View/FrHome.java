@@ -36,6 +36,7 @@ public class FrHome extends JFrame implements ActionListener{
     private JButton btnShowListScores;
     private JButton btnChangePass;
     private JButton btnShowScore;
+    private JButton btnLogout;
     
     public FrHome() {
 //        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
@@ -102,11 +103,17 @@ public class FrHome extends JFrame implements ActionListener{
         this.btnChangePass.setBounds(100,200,165,25);
         this.btnChangePass.addActionListener(this);
         
+        this.btnLogout = new JButton("Đăng xuất");
+        this.btnLogout.setBounds(100,230,165,25);
+        this.btnLogout.addActionListener(this);
+        
         if (LoginColtroller.Username.indexOf("giaovu") != -1){
             panel.add(this.btnChangePass);
+            panel.add(this.btnLogout);
             add(panel);
         } else {
             panelStudent.add(this.btnChangePass);
+            panelStudent.add(this.btnLogout);
             add(panelStudent);
         }
     }
@@ -169,6 +176,13 @@ public class FrHome extends JFrame implements ActionListener{
         else if (e.getSource().equals(this.btnChangePass)){
             try {
                 this.onClickBtnChangePass();
+            } catch (IOException ex) {
+                Logger.getLogger(FrHome.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else if (e.getSource().equals(this.btnLogout)){
+            try {
+                this.onClickBtnLogout();
             } catch (IOException ex) {
                 Logger.getLogger(FrHome.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -252,5 +266,14 @@ public class FrHome extends JFrame implements ActionListener{
         frShow.setVisible(true);
         this.dispose();
     }
+    
+    private void onClickBtnLogout() throws IOException{
+        Login frShow = new Login();
+        LoginColtroller.Username = "";
+        LoginColtroller.Pass = "";
+        frShow.setVisible(true);
+        this.dispose();
+    }
+            
     
 }
