@@ -34,16 +34,15 @@ public class Login extends JFrame implements ActionListener{
     }
     
     public void CreateFrame() {
-        JFrame frame = new JFrame("Login");
-        frame.setSize(350, 200);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(350, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();    
-        frame.add(panel);
+        add(panel);
         placeComponents(panel);
 
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
     
     private void placeComponents(JPanel panel) {

@@ -11,14 +11,14 @@ import Controller.StudentController;
 import Controller.SubjectController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -43,6 +43,13 @@ public class FrHome extends JFrame implements ActionListener{
 //            lg.setVisible(true);
 //            this.dispose();
 //        }
+        //event Closing Frame
+        this.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Login Home = new Login();
+                Home.setVisible(true);
+            }
+        });
         setTitle("Home");
         setSize(500, 500);
         setLocationRelativeTo(null);
@@ -94,12 +101,12 @@ public class FrHome extends JFrame implements ActionListener{
         this.btnChangePass = new JButton("Đổi mật khẩu");
         this.btnChangePass.setBounds(100,200,165,25);
         this.btnChangePass.addActionListener(this);
-        panel.add(this.btnChangePass);
-        panelStudent.add(this.btnChangePass);
         
         if (LoginColtroller.Username.indexOf("giaovu") != -1){
+            panel.add(this.btnChangePass);
             add(panel);
         } else {
+            panelStudent.add(this.btnChangePass);
             add(panelStudent);
         }
     }
@@ -178,8 +185,6 @@ public class FrHome extends JFrame implements ActionListener{
         int returnVal;
         returnVal = openFile.showDialog(this, approveButtonText);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
-           System.out.println("You chose to open this file: " +
-                openFile.getSelectedFile().getCanonicalPath());
             StudentController studentCtr = new StudentController();
             studentCtr.ImportFileClass(openFile.getSelectedFile().getCanonicalPath());
         }
@@ -201,8 +206,6 @@ public class FrHome extends JFrame implements ActionListener{
         int returnVal;
         returnVal = openFile.showDialog(this, approveButtonText);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
-           System.out.println("You chose to open this file: " +
-                openFile.getSelectedFile().getCanonicalPath());
             SubjectController subjectCtr = new SubjectController();
             subjectCtr.ImportFileSubject(openFile.getSelectedFile().getCanonicalPath());
         }
@@ -226,8 +229,6 @@ public class FrHome extends JFrame implements ActionListener{
         int returnVal;
         returnVal = openFile.showDialog(this, approveButtonText);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
-           System.out.println("You chose to open this file: " +
-                openFile.getSelectedFile().getCanonicalPath());
             ScoreController scoreCtr = new ScoreController();
             scoreCtr.ImportFileScores(openFile.getSelectedFile().getCanonicalPath());
         }
