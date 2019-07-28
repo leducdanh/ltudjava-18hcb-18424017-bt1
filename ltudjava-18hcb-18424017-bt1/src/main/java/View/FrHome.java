@@ -55,8 +55,6 @@ public class FrHome extends JFrame implements ActionListener{
         panel.setLayout(null);
         JPanel panelStudent = new JPanel();
         panelStudent.setLayout(null);
-        add(panel);
-        add(panelStudent);
         
         this.btnImportListStudent = new JButton("Import SV");
         this.btnImportListStudent.setBounds(100,20,165,25);
@@ -83,6 +81,11 @@ public class FrHome extends JFrame implements ActionListener{
         this.btnImportScores.addActionListener(this);
         panel.add(this.btnImportScores);
         
+        this.btnShowListScores = new JButton("Xem Điểm");
+        this.btnShowListScores.setBounds(100,170,165,25);
+        this.btnShowListScores.addActionListener(this);
+        panel.add(this.btnShowListScores);
+        
         this.btnShowScore = new JButton("Xem Điểm MH");
         this.btnShowScore.setBounds(100,170,165,25);
         this.btnShowScore.addActionListener(this);
@@ -95,11 +98,9 @@ public class FrHome extends JFrame implements ActionListener{
         panelStudent.add(this.btnChangePass);
         
         if (LoginColtroller.Username.indexOf("giaovu") != -1){
-            panel.setVisible(true);
-            panelStudent.setVisible(false);
+            add(panel);
         } else {
-            panel.setVisible(false);
-            panelStudent.setVisible(true);
+            add(panelStudent);
         }
     }
     
@@ -145,6 +146,13 @@ public class FrHome extends JFrame implements ActionListener{
             }
         }
         else if (e.getSource().equals(this.btnShowListScores)){
+            try {
+                this.onClickBtnShowListScore();
+            } catch (IOException ex) {
+                Logger.getLogger(FrHome.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else if (e.getSource().equals(this.btnShowScore)){
             try {
                 this.onClickBtnShowScore();
             } catch (IOException ex) {
@@ -226,8 +234,14 @@ public class FrHome extends JFrame implements ActionListener{
     }
     
     
-    private void onClickBtnShowScore() throws IOException{
+    private void onClickBtnShowListScore() throws IOException{
         FrShowListScores frShow = new FrShowListScores();
+        frShow.setVisible(true);
+        this.dispose();
+    }
+    
+    private void onClickBtnShowScore() throws IOException{
+        FrSocreOfStudent frShow = new FrSocreOfStudent();
         frShow.setVisible(true);
         this.dispose();
     }

@@ -1,9 +1,12 @@
 /home/danh/Documents/ltudjava-18hcb-18424017-bt1/ltudjava-18hcb-18424017-bt1/src/main/java/Controller/LoginColtroller.java
+/home/danh/Documents/ltudjava-18hcb-18424017-bt1/ltudjava-18hcb-18424017-bt1/src/main/java/Controller/ScoreSubjectOfStudentController.java
+/home/danh/Documents/ltudjava-18hcb-18424017-bt1/ltudjava-18hcb-18424017-bt1/src/main/java/View/FrSocreOfStudent.java
 /home/danh/Documents/ltudjava-18hcb-18424017-bt1/ltudjava-18hcb-18424017-bt1/src/main/java/Model/Student.java
 /home/danh/Documents/ltudjava-18hcb-18424017-bt1/ltudjava-18hcb-18424017-bt1/src/main/java/Controller/SubjectController.java
 /home/danh/Documents/ltudjava-18hcb-18424017-bt1/ltudjava-18hcb-18424017-bt1/src/main/java/Model/Scores.java
 /home/danh/Documents/ltudjava-18hcb-18424017-bt1/ltudjava-18hcb-18424017-bt1/src/main/java/View/FrShowListScores.java
 /home/danh/Documents/ltudjava-18hcb-18424017-bt1/ltudjava-18hcb-18424017-bt1/src/main/java/Controller/StudentController.java
+/home/danh/Documents/ltudjava-18hcb-18424017-bt1/ltudjava-18hcb-18424017-bt1/src/main/java/Model/ScoreSubjectOfStudent.java
 /home/danh/Documents/ltudjava-18hcb-18424017-bt1/ltudjava-18hcb-18424017-bt1/src/main/java/View/FrShowListStudent.java
 /home/danh/Documents/ltudjava-18hcb-18424017-bt1/ltudjava-18hcb-18424017-bt1/src/main/java/View/FrChangePass.java
 /home/danh/Documents/ltudjava-18hcb-18424017-bt1/ltudjava-18hcb-18424017-bt1/src/main/java/View/FrHome.java
