@@ -23,12 +23,12 @@ public class ScoreSubjectOfStudentController {
     public void GetTimetable(String idSubject,  ArrayList<ScoreSubjectOfStudent> ListSubject) throws FileNotFoundException, IOException{
         try {
             String nameClass = this.GetClassStudentByIdStudent();
-            FileReader fr = new FileReader("Data/" + nameClass + "-" + idSubject + "_ScoreSubject.csv");
+            FileReader fr = new FileReader("Data/" + nameClass + "-" + idSubject + "_Scores.txt");
 
             BufferedReader br = new BufferedReader(fr);
             
             ScoreSubjectOfStudent sb = new ScoreSubjectOfStudent();
-            String nameSubject = br.readLine();
+            String nameSubject = this.GetNameSubjectByIdSubject(idSubject);
             sb.setNameSubject(nameSubject);
             sb.setIdSubject(idSubject);
             while (true){
@@ -37,7 +37,10 @@ public class ScoreSubjectOfStudentController {
                     break;
                 
                 if (str.indexOf(LoginColtroller.Username) >= 0){
-                    sb.setScore(str.split(",")[1]);
+                    sb.setScoreMidSemester(str.split(",")[2]);
+                    sb.setScoreEndSemester(str.split(",")[3]);
+                    sb.setScoreplus(str.split(",")[4]);
+                    sb.setScoreSummary(str.split(",")[5]);
                     ListSubject.add(sb);
                     break;
                 }
@@ -47,33 +50,32 @@ public class ScoreSubjectOfStudentController {
         }
     }
     
-    
-    public void ImportFileSubject(String pathFile) throws FileNotFoundException, IOException{
-        FileReader fr = new FileReader(pathFile);
-        //write file listNameTimetable.csv
-        FileWriter fwListNameTimetable = new FileWriter("Data/listNameTimetable.csv", true);
-        
-        BufferedReader br = new BufferedReader(fr);
-        ArrayList<Subject> LstStudet = new ArrayList<Subject>();
-        
-        String nameClass = br.readLine();
-        fwListNameTimetable.write(nameClass + '\n');
-        FileWriter fw = new FileWriter("Data/" + nameClass + "_Timetable.txt");
-        fw.write(nameClass + '\n');
-        while (true){
-            String str = br.readLine();
-            if (str == null)
-                break;
-            
-            fw.write(str + '\n');
-        }
-        fr.close();
-        fw.close();
-        fwListNameTimetable.close();
-    }
-    
-    
     private String GetClassStudentByIdStudent(){
         return LoginColtroller.Username.substring(0, 2) + "HCB";
     }
+    
+    //IdSubject {18HCB-CT001}
+    private String GetNameSubjectByIdSubject(String IdSubject) throws FileNotFoundException{
+        try {
+            
+            FileReader fr = new FileReader("Data/" + IdSubject + "_Timetable.txt");
+            BufferedReader br = new BufferedReader(fr);
+            
+            while (true){
+                String str = br.readLine();
+                if (str == null)
+                    break;
+                
+                if (str.indexOf(IdSubject) >= 0){
+                    return str.split(",")[1];
+                }
+            }
+            
+            fr.close();
+        } catch (Exception e) {
+            return "";
+        }
+        return "";
+    }
+
 }

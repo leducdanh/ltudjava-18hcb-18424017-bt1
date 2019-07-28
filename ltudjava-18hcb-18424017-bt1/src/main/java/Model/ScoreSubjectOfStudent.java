@@ -12,19 +12,23 @@ package Model;
 public class ScoreSubjectOfStudent {
     private String _IdSubject;
     private String _NameSubject;
-    private String _Score;
+    private String _ScoreMidSemester;
+    private String _ScoreEndSemester;
+    private String _Scoreplus;
+    private String _ScoreSummary;
 
     public ScoreSubjectOfStudent() {
     }
 
-    
-    public ScoreSubjectOfStudent(String _IdSubject, String _NameSubject, String _Score) {
+    public ScoreSubjectOfStudent(String _IdSubject, String _NameSubject, String _ScoreMidSemester, String _ScoreEndSemester, String _Scoreplus, String _ScoreSummary) {
         this._IdSubject = _IdSubject;
         this._NameSubject = _NameSubject;
-        this._Score = _Score;
+        this._ScoreMidSemester = _ScoreMidSemester;
+        this._ScoreEndSemester = _ScoreEndSemester;
+        this._Scoreplus = _Scoreplus;
+        this._ScoreSummary = _ScoreSummary;
     }
 
-    
     public String getIdSubject() {
         return _IdSubject;
     }
@@ -41,13 +45,39 @@ public class ScoreSubjectOfStudent {
         this._NameSubject = _NameSubject;
     }
 
-    public String getScore() {
-        return _Score;
+    public String getScoreMidSemester() {
+        return _ScoreMidSemester;
     }
 
-    public void setScore(String _Score) {
-        this._Score = _Score;
+    public void setScoreMidSemester(String _ScoreMidSemester) {
+        this._ScoreMidSemester = _ScoreMidSemester;
     }
+
+    public String getScoreEndSemester() {
+        return _ScoreEndSemester;
+    }
+
+    public void setScoreEndSemester(String _ScoreEndSemester) {
+        this._ScoreEndSemester = _ScoreEndSemester;
+    }
+
+    public String getScoreplus() {
+        return _Scoreplus;
+    }
+
+    public void setScoreplus(String _Scoreplus) {
+        this._Scoreplus = _Scoreplus;
+    }
+
+    public String getScoreSummary() {
+        return _ScoreSummary;
+    }
+
+    public void setScoreSummary(String _ScoreSummary) {
+        this._ScoreSummary = _ScoreSummary;
+    }
+
+    
     
     
 }

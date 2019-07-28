@@ -28,7 +28,7 @@ import javax.swing.table.TableColumnModel;
  * @author danh
  */
 public class FrSocreOfStudent extends JFrame implements ActionListener{
-    String[] ColumnName = {"Stt", "Mã môn", "Tên môn", "Điểm"};
+    String[] ColumnName = {"Stt", "Mã môn", "Tên môn", "Điểm GK", "Điểm CK", "Điểm khác", "Điểm tổng"};
     private  ArrayList<ScoreSubjectOfStudent> LstScoreSubjectOfStudent = new  ArrayList<ScoreSubjectOfStudent>();
     JPanel panel = new JPanel();
     JTable table = new JTable();
@@ -105,7 +105,13 @@ public class FrSocreOfStudent extends JFrame implements ActionListener{
         int index = 0;
         for (ScoreSubjectOfStudent subject : this.LstScoreSubjectOfStudent) {
             index++;
-            this.tableModel.addRow(new String[]{ "" + index, subject.getIdSubject(), subject.getNameSubject(), subject.getScore()});
+            this.tableModel.addRow(new String[]{ "" + index, subject.getIdSubject(), 
+                                                subject.getNameSubject(), 
+                                                subject.getScoreMidSemester(),
+                                                subject.getScoreEndSemester(),
+                                                subject.getScoreplus(),
+                                                subject.getScoreSummary(),
+            });
         }
         this.table.setModel(tableModel);
     }
