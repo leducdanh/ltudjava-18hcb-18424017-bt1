@@ -47,7 +47,6 @@ public class Login extends JFrame implements ActionListener{
     }
     
     private void placeComponents(JPanel panel) {
-
         
         panel.setLayout(null);
 

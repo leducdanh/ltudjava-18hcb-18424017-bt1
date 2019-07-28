@@ -83,11 +83,10 @@ public class FrHome extends JFrame implements ActionListener{
         this.btnImportScores.addActionListener(this);
         panel.add(this.btnImportScores);
         
-        this.btnShowListScores = new JButton("Xem Điểm MH");
-        this.btnShowListScores.setBounds(100,170,165,25);
-        this.btnShowListScores.addActionListener(this);
-        panel.add(this.btnShowListScores);
-        panelStudent.add(this.btnShowListScores);
+        this.btnShowScore = new JButton("Xem Điểm MH");
+        this.btnShowScore.setBounds(100,170,165,25);
+        this.btnShowScore.addActionListener(this);
+        panelStudent.add(this.btnShowScore);
         
         this.btnChangePass = new JButton("Đổi mật khẩu");
         this.btnChangePass.setBounds(100,200,165,25);
