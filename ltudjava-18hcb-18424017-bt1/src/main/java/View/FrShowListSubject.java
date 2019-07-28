@@ -5,9 +5,7 @@
  */
 package View;
 
-import Controller.StudentController;
 import Controller.SubjectController;
-import Model.Student;
 import Model.Subject;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -62,6 +60,7 @@ public class FrShowListSubject extends JFrame implements ActionListener{
     }
     
     private void InitFrame() throws IOException{
+        this.setTitle("Xem thời khóa biểu");
         for(String columnName : this.ColumnName){
            this.tableModel.addColumn(columnName);
         }

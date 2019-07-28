@@ -6,9 +6,7 @@
 package View;
 
 import Controller.ScoreSubjectOfStudentController;
-import Controller.SubjectController;
 import Model.ScoreSubjectOfStudent;
-import Model.Subject;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -18,8 +16,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -51,7 +47,7 @@ public class FrSocreOfStudent extends JFrame implements ActionListener{
             }
         });
         
-        this.ShowTimetable();
+        this.ShowListScoreBySubject();
         TableColumnModel columnModel = table.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(50);
         columnModel.getColumn(1).setPreferredWidth(100);
@@ -60,21 +56,22 @@ public class FrSocreOfStudent extends JFrame implements ActionListener{
     }
     
     private void InitFrame() throws IOException{
+        this.setTitle("Tra cứu điểm");
         for(String columnName : this.ColumnName){
            this.tableModel.addColumn(columnName);
         }
         
-        this.GetItemCombobox();
+        this.GetListIdSubject();
         this.LoadData();
         this.panel.setLayout(null);
-        sp.setBounds(0,300,600,300);
+        sp.setBounds(0,0,600,300);
         panel.add(this.sp);
         Collections.sort(this.LstIdSubject);
         
         add(panel);
-        setSize(600, 600);
+        setSize(600, 300);
         setLocationRelativeTo(null);
-        panel.setBounds(200, 1, 600, 300);
+//        panel.setBounds(0, 0, 600, 300);
         setVisible(true);
     }
     
@@ -82,11 +79,12 @@ public class FrSocreOfStudent extends JFrame implements ActionListener{
         ScoreSubjectOfStudentController subjectCtl = new ScoreSubjectOfStudentController();
         for (String  str: this.LstIdSubject){
             if (!str.isEmpty())
+                //18HCB-CT001
                 subjectCtl.GetTimetable(str.split("-")[1], this.LstScoreSubjectOfStudent);
         }
     }
     
-    public void GetItemCombobox(){
+    public void GetListIdSubject(){
         try {
             FileReader fr = new FileReader("Data/listSubject.csv");
             BufferedReader br = new BufferedReader(fr);
@@ -102,7 +100,7 @@ public class FrSocreOfStudent extends JFrame implements ActionListener{
         }
     }
     
-    public void ShowTimetable(){
+    public void ShowListScoreBySubject(){
         this.tableModel.getDataVector().removeAllElements();
         int index = 0;
         for (ScoreSubjectOfStudent subject : this.LstScoreSubjectOfStudent) {

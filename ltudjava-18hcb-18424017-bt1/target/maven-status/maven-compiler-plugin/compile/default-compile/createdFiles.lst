@@ -6,7 +6,6 @@ View/FrSocreOfStudent.class
 Model/Subject.class
 View/FrShowListSubject$1.class
 View/FrShowListSubject$2.class
-View/FrSocreOfStudent$2.class
 View/FrShowListStudent$1.class
 View/FrShowListScores$2.class
 View/FrChangePass.class

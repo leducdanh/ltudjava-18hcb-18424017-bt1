@@ -9,8 +9,6 @@ import Controller.LoginColtroller;
 import Model.Student;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -30,8 +28,6 @@ import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
-import javax.swing.ComboBoxModel;
-import javax.swing.GroupLayout.Group;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
@@ -64,6 +60,7 @@ public class FrShowListStudent extends JFrame implements ActionListener{
     JButton btnAddStudent;
     
     public FrShowListStudent() throws IOException {
+        this.setTitle("Xem danh sách học sinh");
         LstItemCmb.add("");
 //        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
 //            Login lg = new Login();

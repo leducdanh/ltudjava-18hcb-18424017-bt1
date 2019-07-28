@@ -6,10 +6,7 @@
 package View;
 
 import Controller.ScoreController;
-import Controller.StudentController;
 import Model.Scores;
-import Model.Student;
-import Model.Subject;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,13 +20,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -65,6 +60,7 @@ public class FrShowListScores extends JFrame implements ActionListener{
     JButton btnUpdate;
     
     public FrShowListScores() throws IOException{
+        this.setTitle("Xem danh sách điểm");
         LstItemCmb.add("");
         this.InitFrame();
         
