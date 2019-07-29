@@ -5,7 +5,6 @@
  */
 package Controller;
 
-import Model.Scores;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;

@@ -83,7 +83,6 @@ public class Login extends JFrame implements ActionListener{
                 ckLogin = lg.IsLogin(this.txtUser.getText(), this.txtPass.getText());
                 
                 if (!ckLogin) {
-//                    JOptionPane.setDefaultLocale(Locale.UK);
                     JOptionPane.showMessageDialog((JFrame)null, "Tài khoản không hợp lệ. Xin kiểm tra lại !");
                     return;
                 }

@@ -8,7 +8,6 @@ package View;
 import Controller.LoginColtroller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 /**
  *
@@ -124,7 +122,11 @@ public class FrChangePass extends JFrame implements ActionListener{
             this.txtConfirmPass.requestFocus();
             return;
         }
-        
+        if (this.txtNewPass.getText().indexOf(" ") >= 0){
+            JOptionPane.showMessageDialog((JFrame)null, "Mật khẩu mới không được có khoảng trắng!");
+            this.txtConfirmPass.requestFocus();
+            return;
+        }
         if (LoginColtroller.ChangePass(this.txtNewPass.getText())){
             JOptionPane.showMessageDialog((JFrame)null, "Cập nhật thành công!");
             FrHome home = new FrHome();

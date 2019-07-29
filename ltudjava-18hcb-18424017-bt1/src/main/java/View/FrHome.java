@@ -66,46 +66,46 @@ public class FrHome extends JFrame implements ActionListener{
         panelStudent.setLayout(null);
         
         this.btnImportListStudent = new JButton("Import SV");
-        this.btnImportListStudent.setBounds(150,20,165,25);
+        this.btnImportListStudent.setBounds(this.getWidth()/2 - 165/2,20,165,25);
         this.btnImportListStudent.addActionListener(this);
         panel.add(this.btnImportListStudent);
         
         this.btnShowListStudent = new JButton("Xem DS SV");
-        this.btnShowListStudent.setBounds(100,50,165,25);
+        this.btnShowListStudent.setBounds(this.getWidth()/2 - 165/2,50,165,25);
         this.btnShowListStudent.addActionListener(this);
         panel.add(this.btnShowListStudent);
         
         this.btnImportTimetable = new JButton("Import TKB");
-        this.btnImportTimetable.setBounds(100,80,165,25);
+        this.btnImportTimetable.setBounds(this.getWidth()/2 - 165/2,80,165,25);
         this.btnImportTimetable.addActionListener(this);
         panel.add(this.btnImportTimetable);
         
         this.btnShowListTimetable = new JButton("Xem TKB");
-        this.btnShowListTimetable.setBounds(100,110,165,25);
+        this.btnShowListTimetable.setBounds(this.getWidth()/2 - 165/2,110,165,25);
         this.btnShowListTimetable.addActionListener(this);
         panel.add(this.btnShowListTimetable);
         
         this.btnImportScores = new JButton("Import Điểm");
-        this.btnImportScores.setBounds(100,140,165,25);
+        this.btnImportScores.setBounds(this.getWidth()/2 - 165/2,140,165,25);
         this.btnImportScores.addActionListener(this);
         panel.add(this.btnImportScores);
         
         this.btnShowListScores = new JButton("Xem Điểm");
-        this.btnShowListScores.setBounds(100,170,165,25);
+        this.btnShowListScores.setBounds(this.getWidth()/2 - 165/2,170,165,25);
         this.btnShowListScores.addActionListener(this);
         panel.add(this.btnShowListScores);
         
         this.btnShowScore = new JButton("Xem Điểm MH");
-        this.btnShowScore.setBounds(100,170,165,25);
+        this.btnShowScore.setBounds(this.getWidth()/2 - 165/2,170,165,25);
         this.btnShowScore.addActionListener(this);
         panelStudent.add(this.btnShowScore);
         
         this.btnChangePass = new JButton("Đổi mật khẩu");
-        this.btnChangePass.setBounds(100,200,165,25);
+        this.btnChangePass.setBounds(this.getWidth()/2 - 165/2,200,165,25);
         this.btnChangePass.addActionListener(this);
         
         this.btnLogout = new JButton("Đăng xuất");
-        this.btnLogout.setBounds(100,230,165,25);
+        this.btnLogout.setBounds(this.getWidth()/2 - 165/2,230,165,25);
         this.btnLogout.addActionListener(this);
         
         if (LoginColtroller.Username.indexOf("giaovu") != -1){

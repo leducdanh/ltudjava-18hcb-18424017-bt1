@@ -6,7 +6,6 @@
 package View;
 
 import Controller.SubjectController;
-import Model.ScoreSubjectOfStudent;
 import Model.Subject;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

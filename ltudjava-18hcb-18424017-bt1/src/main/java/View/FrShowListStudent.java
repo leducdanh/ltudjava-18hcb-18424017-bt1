@@ -5,7 +5,6 @@
  */
 package View;
 
-import Controller.LoginColtroller;
 import Model.Student;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

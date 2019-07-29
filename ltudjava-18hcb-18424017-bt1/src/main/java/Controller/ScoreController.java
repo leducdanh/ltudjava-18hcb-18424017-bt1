@@ -6,7 +6,6 @@
 package Controller;
 
 import Model.Scores;
-import Model.Student;
 import Model.Subject;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -15,8 +14,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  *

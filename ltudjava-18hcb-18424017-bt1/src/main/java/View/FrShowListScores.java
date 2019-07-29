@@ -7,7 +7,6 @@ package View;
 
 import Controller.ScoreController;
 import Model.Scores;
-import Model.Student;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
