@@ -40,13 +40,14 @@ public class FrChangePass extends JFrame implements ActionListener{
     }
     
     public void CreateFrame() {
-//        JFrame frame = new JFrame("Đổi mật khẩu");
         setSize(350, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();    
         add(panel);
         placeComponents(panel);
+        
+        this.setResizable(false);
 
         setLocationRelativeTo(null);
         setVisible(true);

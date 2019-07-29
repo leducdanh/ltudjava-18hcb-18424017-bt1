@@ -9,7 +9,6 @@ import Controller.LoginColtroller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -30,6 +29,7 @@ public class Login extends JFrame implements ActionListener{
     JPasswordField txtPass = new JPasswordField(20);
     
     public Login() {
+        this.setResizable(false);
         CreateFrame();
     }
     
@@ -64,7 +64,7 @@ public class Login extends JFrame implements ActionListener{
         this.txtPass.setBounds(100,50,165,25);
         panel.add(this.txtPass);
 
-        JButton btnLogin = new JButton("login");
+        btnLogin = new JButton("login");
         btnLogin.setBounds(10, 80, 80, 25);
         btnLogin.addActionListener(this);
         panel.add(btnLogin);

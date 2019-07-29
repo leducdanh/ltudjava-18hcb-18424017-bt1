@@ -43,6 +43,7 @@ public class FrShowListSubject extends JFrame implements ActionListener, Compara
     ArrayList<String> LstItemCmb= new ArrayList<String>();  
     
     public FrShowListSubject() throws IOException {
+        this.setResizable(false);
         LstItemCmb.add("");
         this.InitFrame();
         //event Closing Frame

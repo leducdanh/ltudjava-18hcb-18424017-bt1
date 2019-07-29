@@ -62,6 +62,7 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
     
     public FrShowListStudent() throws IOException {
         this.setTitle("Xem danh sách học sinh");
+        this.setResizable(false);
         LstItemCmb.add("");
 //        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
 //            Login lg = new Login();
@@ -188,6 +189,7 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
     
     public void ShowListStudent(String Key){
         this.isFocusCycleRoot(this.cmbListNameClass);
+        this.ClearControlTXT();
         this.tableModel.getDataVector().removeAllElements();
         this.tableModel.addRow(new String[] {});
         if (this.ListStudentByClass.get(Key) == null) {
@@ -252,6 +254,12 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
                 Logger.getLogger(FrShowListStudent.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    
+    private void ClearControlTXT(){
+        this.txtID.setText("");
+        this.txtIDStudent.setText("");
+        this.txtNameStudent.setText("");
     }
 
     @Override

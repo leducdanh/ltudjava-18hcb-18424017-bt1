@@ -63,6 +63,7 @@ public class FrShowListScores extends JFrame implements ActionListener, Comparat
     
     public FrShowListScores() throws IOException{
         this.setTitle("Xem danh sách điểm");
+        this.setResizable(false);
         LstItemCmb.add("");
         this.InitFrame();
         
@@ -218,6 +219,7 @@ public class FrShowListScores extends JFrame implements ActionListener, Comparat
     
     public void ShowScores(String Key){
         try {
+            this.ClearControlTXT();
             this.isFocusCycleRoot(this.cmbListNameSubject);
             this.tableModel.getDataVector().removeAllElements();
             this.tableModel.addRow(new String[] {});
@@ -246,13 +248,13 @@ public class FrShowListScores extends JFrame implements ActionListener, Comparat
             this.lblQtyPass.setText("Số SV đậu: " + "" + qtyPass);
             percentPass = qtyPass * 100 / this.ListScores.get(Key).size();
             this.lblPercentPass.setText("");
-            this.lblPercentPass.setText("Chiếm: : " + "" + percentPass + "%");
+            this.lblPercentPass.setText("Chiếm: " + "" + percentPass + "%");
             
             this.lblQtyFail.setText("");
             this.lblQtyFail.setText("Số SV rớt: " + "" + (this.ListScores.get(Key).size() - qtyPass));
             percentPass = qtyPass * 100 / this.ListScores.get(Key).size();
             this.lblPercentFail.setText("");
-            this.lblPercentFail.setText("Chiếm: : " + "" + (100 - percentPass) + "%");
+            this.lblPercentFail.setText("Chiếm: " + "" + (100 - percentPass) + "%");
             
             this.table.setModel(tableModel);
         } catch (Exception e) {
@@ -318,6 +320,21 @@ public class FrShowListScores extends JFrame implements ActionListener, Comparat
                 Logger.getLogger(FrShowListScores.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    
+    private void ClearControlTXT(){
+        this.txtIDStudent.setText("");
+        this.txtNameStudent.setText("");
+        this.txtScoreEndSemester.setText("");
+        this.txtScoreMidSemester.setText("");
+        this.txtScoreplus.setText("");
+        this.txtScoreSummary.setText("");
+        
+        this.lblQtyPass.setText("Số SV đậu: ");
+        this.lblPercentPass.setText("Chiếm: ");
+
+        this.lblQtyFail.setText("Số SV rớt: ");
+        this.lblPercentFail.setText("Chiếm: ");
     }
 
     @Override

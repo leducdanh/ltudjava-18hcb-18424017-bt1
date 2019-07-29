@@ -51,6 +51,7 @@ public class FrHome extends JFrame implements ActionListener{
                 Home.setVisible(true);
             }
         });
+        this.setResizable(false);
         setTitle("Home");
         setSize(500, 500);
         setLocationRelativeTo(null);
@@ -65,7 +66,7 @@ public class FrHome extends JFrame implements ActionListener{
         panelStudent.setLayout(null);
         
         this.btnImportListStudent = new JButton("Import SV");
-        this.btnImportListStudent.setBounds(100,20,165,25);
+        this.btnImportListStudent.setBounds(150,20,165,25);
         this.btnImportListStudent.addActionListener(this);
         panel.add(this.btnImportListStudent);
         

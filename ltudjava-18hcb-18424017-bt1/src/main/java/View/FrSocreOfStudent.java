@@ -39,6 +39,7 @@ public class FrSocreOfStudent extends JFrame implements ActionListener, Comparat
     ArrayList<String> LstIdSubject= new ArrayList<String>();  
     
     public FrSocreOfStudent() throws IOException {
+        this.setResizable(false);
         LstIdSubject.add("");
         this.InitFrame();
         //event Closing Frame
