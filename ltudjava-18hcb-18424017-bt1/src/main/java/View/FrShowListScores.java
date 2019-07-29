@@ -94,7 +94,7 @@ public class FrShowListScores extends JFrame implements ActionListener, Comparat
         this.GetItemCombobox();
         this.LoadData();
         this.panel.setLayout(null);
-        sp.setBounds(0,300,600,300);
+        sp.setBounds(0,300,600,262);
         panel.add(this.sp);
         Collections.sort(this.LstItemCmb);
         this.cmbListNameSubject =new JComboBox(this.LstItemCmb.toArray());

@@ -66,7 +66,7 @@ public class FrSocreOfStudent extends JFrame implements ActionListener, Comparat
         this.GetListIdSubject();
         this.LoadData();
         this.panel.setLayout(null);
-        sp.setBounds(0,0,600,300);
+        sp.setBounds(0,0,600,262);
         panel.add(this.sp);
         Collections.sort(this.LstIdSubject);
         

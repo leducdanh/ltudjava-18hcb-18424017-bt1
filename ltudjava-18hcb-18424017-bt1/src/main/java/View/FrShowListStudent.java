@@ -82,7 +82,7 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
         this.DetailComponent();
         
         panel.setLayout(null);
-        sp.setBounds(0,300,600,300);
+        sp.setBounds(0,300,600,262);
         panel.add(this.sp);
         
         for(String columnName : ColumnName){
@@ -102,7 +102,7 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
         add(panel);
         setSize(600, 600);
         setLocationRelativeTo(null);
-        panel.setBounds(200, 1, 600, 300);
+        panel.setBounds(190, 1, 600, 300);
         setVisible(true);
     }
     
