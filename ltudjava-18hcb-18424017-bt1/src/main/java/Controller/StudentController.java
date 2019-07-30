@@ -52,36 +52,42 @@ public class StudentController {
         
     }
     
-    public void ImportFileClass(String pathFile) throws FileNotFoundException, IOException{
-        FileReader fr = new FileReader(pathFile);
-        
-        //write name class for file listNameClass.csv
-        FileWriter fwListNameClass = new FileWriter("Data/listNameClass.csv", true);
-        
-        //write name class for file accountTeacher.csv
-        FileWriter fwAccount = new FileWriter("Data/accountTeacher.csv", true);
-        
-        BufferedReader br = new BufferedReader(fr);
-        ArrayList<Student> LstStudet = new ArrayList<Student>();
-        
-        String nameClass = br.readLine();
-        fwListNameClass.write(nameClass + '\n');
-        FileWriter fw = new FileWriter("Data/" + nameClass + ".txt");
-        fw.write(nameClass + '\n');
-        while (true){
-            Student st = new Student();
-            String str = br.readLine();
-            if (str == null)
-                break;
+    public boolean ImportFileClass(String pathFile) throws FileNotFoundException, IOException{
+        try {
             
-            fw.write(str + '\n');
-            fwAccount.write(str.split(",")[0] + " " + str.split(",")[0] + '\n');
+            FileReader fr = new FileReader(pathFile);
 
+            //write name class for file listNameClass.csv
+            FileWriter fwListNameClass = new FileWriter("Data/listNameClass.csv", true);
+
+            //write name class for file accountTeacher.csv
+            FileWriter fwAccount = new FileWriter("Data/accountTeacher.csv", true);
+
+            BufferedReader br = new BufferedReader(fr);
+            ArrayList<Student> LstStudet = new ArrayList<Student>();
+
+            String nameClass = br.readLine();
+            fwListNameClass.write(nameClass + '\n');
+            FileWriter fw = new FileWriter("Data/" + nameClass + ".txt");
+            fw.write(nameClass + '\n');
+            while (true){
+                Student st = new Student();
+                String str = br.readLine();
+                if (str == null)
+                    break;
+
+                fw.write(str + '\n');
+                fwAccount.write(str.split(",")[0] + " " + str.split(",")[0] + '\n');
+
+            }
+            fr.close();
+            fw.close();
+            fwListNameClass.close();
+            fwAccount.close();
+        } catch (Exception e) {
+            return false;
         }
-        fr.close();
-        fw.close();
-        fwListNameClass.close();
-        fwAccount.close();
+        return true;
     }
     
     public boolean AddStudent(Student student, String nameClass, ArrayList<Student> lstStudent) throws FileNotFoundException, IOException{

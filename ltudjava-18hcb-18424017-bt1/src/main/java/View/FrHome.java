@@ -9,6 +9,7 @@ import Controller.LoginColtroller;
 import Controller.ScoreController;
 import Controller.StudentController;
 import Controller.SubjectController;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -201,7 +203,11 @@ public class FrHome extends JFrame implements ActionListener{
         returnVal = openFile.showDialog(this, approveButtonText);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
             StudentController studentCtr = new StudentController();
-            studentCtr.ImportFileClass(openFile.getSelectedFile().getCanonicalPath());
+            if (studentCtr.ImportFileClass(openFile.getSelectedFile().getCanonicalPath()))
+                JOptionPane.showMessageDialog((Frame)null, "Import thành công!");
+            else 
+                JOptionPane.showMessageDialog((Frame)null, "Import thất bại. Xin kiểm tra lại!");
+            
         }
     }
     
@@ -223,6 +229,7 @@ public class FrHome extends JFrame implements ActionListener{
         if(returnVal == JFileChooser.APPROVE_OPTION) {
             SubjectController subjectCtr = new SubjectController();
             subjectCtr.ImportFileSubject(openFile.getSelectedFile().getCanonicalPath());
+            
         }
     }
     
@@ -245,7 +252,10 @@ public class FrHome extends JFrame implements ActionListener{
         returnVal = openFile.showDialog(this, approveButtonText);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
             ScoreController scoreCtr = new ScoreController();
-            scoreCtr.ImportFileScores(openFile.getSelectedFile().getCanonicalPath());
+            if (scoreCtr.ImportFileScores(openFile.getSelectedFile().getCanonicalPath()))
+                JOptionPane.showMessageDialog((Frame)null, "Import thành công!");
+            else 
+                JOptionPane.showMessageDialog((Frame)null, "Import thất bại. Xin kiểm tra lại!");
         }
     }
     

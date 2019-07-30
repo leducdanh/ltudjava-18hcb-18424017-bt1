@@ -50,30 +50,35 @@ public class ScoreController {
         
     }
     
-    public void ImportFileScores(String pathFile) throws FileNotFoundException, IOException{
-        FileReader fr = new FileReader(pathFile);
-        
-        //write name class for file listNameClass.csv
-        FileWriter fwListSubject = new FileWriter("Data/listSubject.csv", true);
-        
-        BufferedReader br = new BufferedReader(fr);
-        ArrayList<Subject> LstStudet = new ArrayList<Subject>();
-        
-        String nameSubject = br.readLine();
-        fwListSubject.write(nameSubject + '\n');
-        FileWriter fw = new FileWriter("Data/" + nameSubject + "_Scores.txt");
-        fw.write(nameSubject + '\n');
-        while (true){
-            String str = br.readLine();
-            if (str == null)
-                break;
-            
-            fw.write(str + '\n');
+    public boolean ImportFileScores(String pathFile) throws FileNotFoundException, IOException{
+        try {
+            FileReader fr = new FileReader(pathFile);
 
+            //write name class for file listNameClass.csv
+            FileWriter fwListSubject = new FileWriter("Data/listSubject.csv", true);
+
+            BufferedReader br = new BufferedReader(fr);
+            ArrayList<Subject> LstStudet = new ArrayList<Subject>();
+
+            String nameSubject = br.readLine();
+            fwListSubject.write(nameSubject + '\n');
+            FileWriter fw = new FileWriter("Data/" + nameSubject + "_Scores.txt");
+            fw.write(nameSubject + '\n');
+            while (true){
+                String str = br.readLine();
+                if (str == null)
+                    break;
+
+                fw.write(str + '\n');
+
+            }
+            fr.close();
+            fw.close();
+            fwListSubject.close();
+        } catch (Exception e) {
+            return false;
         }
-        fr.close();
-        fw.close();
-        fwListSubject.close();
+        return true;
     }
     
     public boolean UpdateScore(Scores score, String nameClass, ArrayList<Scores> lstScores) throws FileNotFoundException, IOException{

@@ -47,27 +47,33 @@ public class SubjectController {
     }
     
     
-    public void ImportFileSubject(String pathFile) throws FileNotFoundException, IOException{
-        FileReader fr = new FileReader(pathFile);
-        //write file listNameTimetable.csv
-        FileWriter fwListNameTimetable = new FileWriter("Data/listNameTimetable.csv", true);
-        
-        BufferedReader br = new BufferedReader(fr);
-        ArrayList<Subject> LstStudet = new ArrayList<Subject>();
-        
-        String nameClass = br.readLine();
-        fwListNameTimetable.write(nameClass + '\n');
-        FileWriter fw = new FileWriter("Data/" + nameClass + "_Timetable.txt");
-        fw.write(nameClass + '\n');
-        while (true){
-            String str = br.readLine();
-            if (str == null)
-                break;
+    public boolean ImportFileSubject(String pathFile) throws FileNotFoundException, IOException{
+        try {
             
-            fw.write(str + '\n');
+            FileReader fr = new FileReader(pathFile);
+            //write file listNameTimetable.csv
+            FileWriter fwListNameTimetable = new FileWriter("Data/listNameTimetable.csv", true);
+
+            BufferedReader br = new BufferedReader(fr);
+            ArrayList<Subject> LstStudet = new ArrayList<Subject>();
+
+            String nameClass = br.readLine();
+            fwListNameTimetable.write(nameClass + '\n');
+            FileWriter fw = new FileWriter("Data/" + nameClass + "_Timetable.txt");
+            fw.write(nameClass + '\n');
+            while (true){
+                String str = br.readLine();
+                if (str == null)
+                    break;
+
+                fw.write(str + '\n');
+            }
+            fr.close();
+            fw.close();
+            fwListNameTimetable.close();
+        } catch (Exception e) {
+            return false;
         }
-        fr.close();
-        fw.close();
-        fwListNameTimetable.close();
+        return true;
     }
 }
