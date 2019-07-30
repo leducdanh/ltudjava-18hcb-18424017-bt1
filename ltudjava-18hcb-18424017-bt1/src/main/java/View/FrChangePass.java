@@ -133,5 +133,8 @@ public class FrChangePass extends JFrame implements ActionListener{
             home.setVisible(true);
             this.dispose();
         }
+        else {
+            JOptionPane.showMessageDialog((JFrame)null, "Cập nhật thất bại. Xin thử lại!");
+        }
     }
 }

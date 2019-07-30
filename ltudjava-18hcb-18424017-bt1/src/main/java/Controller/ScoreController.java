@@ -56,12 +56,28 @@ public class ScoreController {
 
             //write name class for file listNameClass.csv
             FileWriter fwListSubject = new FileWriter("Data/listSubject.csv", true);
+            FileReader frListSubject = new FileReader("Data/listSubject.csv");
 
-            BufferedReader br = new BufferedReader(fr);
+            BufferedReader br;
             ArrayList<Subject> LstStudet = new ArrayList<Subject>();
-
+            
+            //get list subject in file listSubject.csv
+            br = new BufferedReader(frListSubject);
+            String strLstNameSubject = "";
+            while (true){
+                String str = br.readLine();
+                if (str == null)
+                    break;
+                strLstNameSubject += str + ",";
+            }
+            frListSubject.close();
+            
+            br = new BufferedReader(fr);
             String nameSubject = br.readLine();
-            fwListSubject.write(nameSubject + '\n');
+            
+            //writing if is not exist
+            if (strLstNameSubject.indexOf(nameSubject) < 0)
+                fwListSubject.write(nameSubject + '\n');
             FileWriter fw = new FileWriter("Data/" + nameSubject + "_Scores.txt");
             fw.write(nameSubject + '\n');
             while (true){

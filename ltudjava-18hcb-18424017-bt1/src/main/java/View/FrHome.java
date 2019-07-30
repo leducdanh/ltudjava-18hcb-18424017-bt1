@@ -228,8 +228,10 @@ public class FrHome extends JFrame implements ActionListener{
         returnVal = openFile.showDialog(this, approveButtonText);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
             SubjectController subjectCtr = new SubjectController();
-            subjectCtr.ImportFileSubject(openFile.getSelectedFile().getCanonicalPath());
-            
+            if (subjectCtr.ImportFileSubject(openFile.getSelectedFile().getCanonicalPath()))
+                JOptionPane.showMessageDialog((Frame)null, "Import thành công!");
+            else 
+                JOptionPane.showMessageDialog((Frame)null, "Import thất bại. Xin kiểm tra lại!");
         }
     }
     

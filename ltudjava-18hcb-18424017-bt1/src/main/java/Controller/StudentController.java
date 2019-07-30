@@ -59,25 +59,53 @@ public class StudentController {
 
             //write name class for file listNameClass.csv
             FileWriter fwListNameClass = new FileWriter("Data/listNameClass.csv", true);
+            FileReader frListNameClass = new FileReader("Data/listNameClass.csv");
 
             //write name class for file accountTeacher.csv
             FileWriter fwAccount = new FileWriter("Data/accountTeacher.csv", true);
+            FileReader frAccount = new FileReader("Data/accountTeacher.csv");
 
-            BufferedReader br = new BufferedReader(fr);
+            BufferedReader br;
             ArrayList<Student> LstStudet = new ArrayList<Student>();
-
+            
+            br = new BufferedReader(frListNameClass);
+            String strLstNameClass = "";
+            while (true){
+                String str = br.readLine();
+                if (str == null)
+                    break;
+               strLstNameClass += str + ",";
+            }
+            frListNameClass.close();
+            
+            br = new BufferedReader(frAccount);
+            String strLstAccount = "";
+            while (true){
+                String str = br.readLine();
+                if (str == null)
+                    break;
+               strLstAccount += str + ",";
+            }
+            frAccount.close();
+            
+            br = new BufferedReader(fr);
             String nameClass = br.readLine();
-            fwListNameClass.write(nameClass + '\n');
+            if (strLstNameClass.indexOf(nameClass) <0 )
+                fwListNameClass.write(nameClass + '\n');
+            
             FileWriter fw = new FileWriter("Data/" + nameClass + ".txt");
             fw.write(nameClass + '\n');
+            
             while (true){
                 Student st = new Student();
                 String str = br.readLine();
                 if (str == null)
                     break;
-
+                
                 fw.write(str + '\n');
-                fwAccount.write(str.split(",")[0] + " " + str.split(",")[0] + '\n');
+                
+                if (strLstAccount.indexOf(str.split(",")[0]) < 0)
+                    fwAccount.write(str.split(",")[0] + " " + str.split(",")[0] + '\n');
 
             }
             fr.close();
