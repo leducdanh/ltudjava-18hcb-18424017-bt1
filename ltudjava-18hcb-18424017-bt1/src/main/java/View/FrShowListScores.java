@@ -305,13 +305,13 @@ public class FrShowListScores extends JFrame implements ActionListener, Comparat
                     this.lblQtyPass.setText("Số SV đậu: " + "" + qtyPass);
                     percentPass = qtyPass * 100 / this.ListScores.get(nameClass).size();
                     this.lblPercentPass.setText("");
-                    this.lblPercentPass.setText("Chiếm: : " + "" + percentPass + "%");
+                    this.lblPercentPass.setText("Chiếm: " + "" + percentPass + "%");
 
                     this.lblQtyFail.setText("");
                     this.lblQtyFail.setText("Số SV rớt: " + "" + (this.ListScores.get(nameClass).size() - qtyPass));
                     percentPass = qtyPass * 100 / this.ListScores.get(nameClass).size();
                     this.lblPercentFail.setText("");
-                    this.lblPercentFail.setText("Chiếm: : " + "" + (100 - percentPass) + "%");
+                    this.lblPercentFail.setText("Chiếm: " + "" + (100 - percentPass) + "%");
                     ///////////////////////////
                 }
             } catch (IOException ex) {
