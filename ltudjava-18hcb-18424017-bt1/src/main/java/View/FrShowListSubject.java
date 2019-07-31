@@ -102,7 +102,6 @@ public class FrShowListSubject extends JFrame implements ActionListener, Compara
     
     public void GetItemCombobox(){
         try {
-            System.out.println("GetItemCombobox");
             FileReader fr = new FileReader("Data/listNameTimetable.csv");
             BufferedReader br = new BufferedReader(fr);
             while (true){

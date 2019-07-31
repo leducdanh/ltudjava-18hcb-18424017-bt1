@@ -25,7 +25,7 @@ public class ScoreSubjectOfStudentController {
             BufferedReader br = new BufferedReader(fr);
             
             ScoreSubjectOfStudent sb = new ScoreSubjectOfStudent();
-            String nameSubject = this.GetNameSubjectByIdSubject(idSubject);
+            String nameSubject = this.GetNameSubjectByIdSubject(nameClass + "-" + idSubject);
             sb.setNameSubject(nameSubject);
             sb.setIdSubject(idSubject);
             while (true){
@@ -55,7 +55,7 @@ public class ScoreSubjectOfStudentController {
     private String GetNameSubjectByIdSubject(String IdSubject) throws FileNotFoundException{
         try {
             
-            FileReader fr = new FileReader("Data/" + IdSubject + "_Timetable.txt");
+            FileReader fr = new FileReader("Data/" + IdSubject.split("-")[0] + "_Timetable.txt");
             BufferedReader br = new BufferedReader(fr);
             
             while (true){

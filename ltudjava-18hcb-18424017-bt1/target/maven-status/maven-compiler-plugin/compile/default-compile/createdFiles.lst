@@ -4,6 +4,7 @@ Model/Student.class
 View/FrHome.class
 View/FrSocreOfStudent.class
 Model/Subject.class
+View/FrChangePass$1.class
 View/FrShowListSubject$1.class
 View/FrShowListSubject$2.class
 View/FrShowListStudent$1.class

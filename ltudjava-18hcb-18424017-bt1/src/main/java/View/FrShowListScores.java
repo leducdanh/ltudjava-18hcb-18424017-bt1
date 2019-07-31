@@ -201,7 +201,6 @@ public class FrShowListScores extends JFrame implements ActionListener, Comparat
     
     public void GetItemCombobox(){
         try {
-            System.out.println("GetItemCombobox");
             FileReader fr = new FileReader("Data/listSubject.csv");
             BufferedReader br = new BufferedReader(fr);
             while (true){
