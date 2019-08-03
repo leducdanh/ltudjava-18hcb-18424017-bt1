@@ -70,6 +70,7 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
             Login lg = new Login();
             lg.setVisible(true);
             this.dispose();
+            return;
         }
         
         ///////////////////////////////////////////////////
@@ -240,6 +241,14 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(this.btnAddStudent)){
+            //check all input
+            if (this.txtIDStudent.getText().trim() == ""
+                || this.txtNameStudent.getText().trim() == ""
+                || this.txtID.getText().trim() == ""){
+                JOptionPane.showMessageDialog((JFrame)null, "Hãy nhập đủ thông tin!", "Thông báo", 1);
+                return;
+            }
+            
             StudentController STctl = new StudentController();
             Student student = new Student(this.txtIDStudent.getText(),
                                           this.txtNameStudent.getText(), 

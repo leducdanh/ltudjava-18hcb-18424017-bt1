@@ -47,6 +47,7 @@ public class FrShowListSubject extends JFrame implements ActionListener, Compara
             Login lg = new Login();
             lg.setVisible(true);
             this.dispose();
+            return;
         }
         this.setResizable(false);
         LstItemCmb.add("");
@@ -126,6 +127,7 @@ public class FrShowListSubject extends JFrame implements ActionListener, Compara
         this.isFocusCycleRoot(this.cmbListNameClass);
         this.tableModel.getDataVector().removeAllElements();
         this.tableModel.addRow(new String[] {});
+        this.tableModel.removeRow(0);
         if (this.ListSubject.get(Key) == null) {
             this.table.setModel(tableModel);
             return;

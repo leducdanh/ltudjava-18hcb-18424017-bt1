@@ -45,6 +45,7 @@ public class FrHome extends JFrame implements ActionListener{
             Login lg = new Login();
             lg.setVisible(true);
             this.dispose();
+            return;
         }
         //event Closing Frame
         this.addWindowListener(new WindowAdapter() {

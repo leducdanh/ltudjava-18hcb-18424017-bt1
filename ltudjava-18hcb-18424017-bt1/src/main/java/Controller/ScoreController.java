@@ -31,7 +31,7 @@ public class ScoreController {
             while (true){
                 Scores score = new Scores();
                 String str = br.readLine();
-                if (str.isEmpty())
+                if (str == null || str.trim().isEmpty())
                     break;
 
                 score.setIdStudent(str.split(",")[0]); //set MSSV for student

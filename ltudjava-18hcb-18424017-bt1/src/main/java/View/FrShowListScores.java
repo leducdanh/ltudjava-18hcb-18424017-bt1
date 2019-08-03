@@ -26,6 +26,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -66,6 +67,7 @@ public class FrShowListScores extends JFrame implements ActionListener, Comparat
             Login lg = new Login();
             lg.setVisible(true);
             this.dispose();
+            return;
         }
         this.setTitle("Xem danh sách điểm");
         this.setResizable(false);
@@ -227,6 +229,7 @@ public class FrShowListScores extends JFrame implements ActionListener, Comparat
             this.isFocusCycleRoot(this.cmbListNameSubject);
             this.tableModel.getDataVector().removeAllElements();
             this.tableModel.addRow(new String[] {});
+            this.tableModel.removeRow(0);
             if (this.ListScores.get(Key) == null) {
                 this.table.setModel(tableModel);
                 return;
@@ -274,6 +277,9 @@ public class FrShowListScores extends JFrame implements ActionListener, Comparat
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(this.btnUpdate)){
+            if (!this.CheckAllInput())
+                return;
+            
             ScoreController scoreCtr = new ScoreController();
             //value score
             Scores score = new Scores(this.txtIDStudent.getText(),
@@ -340,6 +346,53 @@ public class FrShowListScores extends JFrame implements ActionListener, Comparat
         this.lblQtyFail.setText("Số SV rớt: ");
         this.lblPercentFail.setText("Chiếm: ");
     }
+    
+    private boolean CheckAllInput() {
+        if (this.txtScoreMidSemester.getText().trim().isEmpty()
+            || this.txtScoreEndSemester.getText().trim().isEmpty()
+            || this.txtScoreplus.getText().trim().isEmpty()
+            || this.txtScoreSummary.getText().trim().isEmpty()
+            || this.txtIDStudent.getText().trim().isEmpty()
+            || this.txtNameStudent.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog((JFrame)null, "Hãy nhập đày đủ thông tin!", "Thiếu điểm", HEIGHT);
+            return false;
+        }
+        else if (!this.CheckInputNumber(this.txtScoreMidSemester.getText().trim())
+                || Float.parseFloat(this.txtScoreMidSemester.getText().trim()) < 0
+                || Float.parseFloat(this.txtScoreMidSemester.getText().trim()) > 10){
+            JOptionPane.showMessageDialog((JFrame)null, "\"Điểm giữa kỳ\" không hợp lệ!", "Thông báo", HEIGHT);
+            return false;
+        }
+        else if (!this.CheckInputNumber(this.txtScoreMidSemester.getText().trim())
+                || Float.parseFloat(this.txtScoreEndSemester.getText().trim()) < 0
+                || Float.parseFloat(this.txtScoreEndSemester.getText().trim()) > 10){
+            JOptionPane.showMessageDialog((JFrame)null, "\"Điểm cuối kỳ\" không hợp lệ!", "Thông báo", HEIGHT);
+            return false;
+        }
+        else if (!this.CheckInputNumber(this.txtScoreMidSemester.getText().trim())
+                || Float.parseFloat(this.txtScoreplus.getText().trim()) < 0
+                || Float.parseFloat(this.txtScoreplus.getText().trim()) > 10){
+            JOptionPane.showMessageDialog((JFrame)null, "\"Điểm khác\" không hợp lệ!", "Thông báo", HEIGHT);
+            return false;
+        }
+        else if (!this.CheckInputNumber(this.txtScoreMidSemester.getText().trim())
+                || Float.parseFloat(this.txtScoreSummary.getText().trim()) < 0
+                || Float.parseFloat(this.txtScoreSummary.getText().trim()) > 10){
+            JOptionPane.showMessageDialog((JFrame)null, "\"Điểm tổng\" không hợp lệ!", "Thông báo", HEIGHT);
+            return false;
+        }
+        
+        return true;
+    }
+    
+    private boolean CheckInputNumber(String value) {
+    try {
+      Float.parseFloat(value);
+      return true;
+    } catch (NumberFormatException e) {
+      return false;
+    }
+  }
 
     @Override
     public int compare(Scores score1, Scores score2) {

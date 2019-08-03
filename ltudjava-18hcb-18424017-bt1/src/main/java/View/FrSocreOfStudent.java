@@ -43,6 +43,7 @@ public class FrSocreOfStudent extends JFrame implements ActionListener, Comparat
             Login lg = new Login();
             lg.setVisible(true);
             this.dispose();
+            return;
         }
         this.setResizable(false);
         LstIdSubject.add("");

@@ -34,7 +34,7 @@ public class ScoreSubjectOfStudentController {
             sb.setIdSubject(idSubject);
             while (true){
                 String str = br.readLine();
-                if (str.isEmpty())
+                if (str == null || str.trim().isEmpty())
                     break;
                 
                 if (str.indexOf(LoginColtroller.Username) >= 0){
