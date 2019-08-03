@@ -89,7 +89,7 @@ public class FrSocreOfStudent extends JFrame implements ActionListener, Comparat
         for (String  str: this.LstIdSubject){
             if (!str.isEmpty())
                 //18HCB-CT001
-                subjectCtl.GetTimetable(str.split("-")[1], this.LstScoreSubjectOfStudent);
+                subjectCtl.GetTimetable(str, this.LstScoreSubjectOfStudent);
         }
     }
     

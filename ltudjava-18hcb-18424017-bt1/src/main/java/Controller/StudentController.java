@@ -148,38 +148,43 @@ public class StudentController {
     }
     
     public boolean DelStudent(String IdStudent, String nameClass, ArrayList<Student> lstStudent) throws FileNotFoundException, IOException{
-        //write file
-        FileWriter fw = new FileWriter("Data/" + nameClass + ".txt");
-        
-        File frScores = new File("Data/" + nameClass + "_Scores.txt");
-        
-        ArrayList<Scores> lstScores = new ArrayList<Scores>();
-        BufferedReader br = new BufferedReader(new InputStreamReader(
-                    new FileInputStream(frScores), "UTF8"));
-            
-        fw.write(nameClass + '\n');
-        for (Student student : lstStudent) {
-            //writing file
-            String strGender = (student.getGENDER())? "Nam": "Nữ";
-            fw.write(student.getIdStudent() + "," + student.getNAME() + "," +
-                     strGender + "," + student.getID() + '\n');
-        }
-        fw.close();
-        String data = "";
-        while(true) {
-            String str = br.readLine();
-            if (str == null || str.trim().isEmpty())
-                break;
-            if (!str.split(",")[0].equals(IdStudent)){
-                data += str + "\r\n";
+        try {
+            //write file
+            FileWriter fw = new FileWriter("Data/" + nameClass + ".txt");
+
+            File frScores = new File("Data/" + nameClass + "_Scores.txt");
+
+            ArrayList<Scores> lstScores = new ArrayList<Scores>();
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                        new FileInputStream(frScores), "UTF8"));
+
+            fw.write(nameClass + '\n');
+            for (Student student : lstStudent) {
+                //writing file
+                String strGender = (student.getGENDER())? "Nam": "Nữ";
+                fw.write(student.getIdStudent() + "," + student.getNAME() + "," +
+                         strGender + "," + student.getID() + '\n');
             }
+            fw.close();
+            String data = "";
+            while(true) {
+                String str = br.readLine();
+                if (str == null || str.trim().isEmpty())
+                    break;
+                if (!str.split(",")[0].equals(IdStudent)){
+                    data += str + "\r\n";
+                }
+            }
+
+            FileWriter fwScore = new FileWriter("Data/" + nameClass + "_Scores.txt");
+
+            fwScore.write(data + '\n');
+            fwScore.close();
+            br.close();
+            return true;
+        } catch (Exception e) {
+            return false;
         }
         
-        FileWriter fwScore = new FileWriter("Data/" + nameClass + "_Scores.txt");
-        
-        fwScore.write(data + '\n');
-        fwScore.close();
-        br.close();
-        return true;
     }
 }

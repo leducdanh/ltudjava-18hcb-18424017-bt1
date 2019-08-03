@@ -23,15 +23,15 @@ public class ScoreSubjectOfStudentController {
     public void GetTimetable(String idSubject,  ArrayList<ScoreSubjectOfStudent> ListSubject) throws FileNotFoundException, IOException{
         try {
             String nameClass = this.GetClassStudentByIdStudent();
-            File fr = new File("Data/" + nameClass + "-" + idSubject + "_Scores.txt");
+            File fr = new File("Data/" + idSubject + "_Scores.txt");
 
             BufferedReader br = new BufferedReader(new InputStreamReader(
                       new FileInputStream(fr), "UTF8"));
             
             ScoreSubjectOfStudent sb = new ScoreSubjectOfStudent();
-            String nameSubject = this.GetNameSubjectByIdSubject(nameClass + "-" + idSubject);
+            String nameSubject = this.GetNameSubjectByIdSubject(idSubject);
             sb.setNameSubject(nameSubject);
-            sb.setIdSubject(idSubject);
+            sb.setIdSubject(idSubject.split("-")[1]);
             while (true){
                 String str = br.readLine();
                 if (str == null || str.trim().isEmpty())

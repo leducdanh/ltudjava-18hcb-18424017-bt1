@@ -242,9 +242,9 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(this.btnAddStudent)){
             //check all input
-            if (this.txtIDStudent.getText().trim() == ""
-                || this.txtNameStudent.getText().trim() == ""
-                || this.txtID.getText().trim() == ""){
+            if (this.txtIDStudent.getText().trim().isEmpty()
+                || this.txtNameStudent.getText().trim().isEmpty()
+                || this.txtID.getText().trim().isEmpty()){
                 JOptionPane.showMessageDialog((JFrame)null, "Hãy nhập đủ thông tin!", "Thông báo", 1);
                 return;
             }
@@ -289,14 +289,12 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
             this.ListStudentByClass.get(nameClass).remove(this.table.getSelectedRow());
             try {
                 isAddSuccess = STctl.DelStudent(IdStudent, nameClass, this.ListStudentByClass.get(nameClass));
-                if (isAddSuccess) {
-                    this.tableModel.removeRow(this.table.getSelectedRow());
-                    //upd index
-                    for (int i = 0;i < this.ListStudentByClass.get(nameClass).size();i++)
-                        this.tableModel.setValueAt(i + 1, i, 0);
-                    this.table.setModel(this.tableModel);
-                    this.ClearControlTXT();
-                }
+                this.tableModel.removeRow(this.table.getSelectedRow());
+                //upd index
+                for (int i = 0;i < this.ListStudentByClass.get(nameClass).size();i++)
+                    this.tableModel.setValueAt(i + 1, i, 0);
+                this.table.setModel(this.tableModel);
+                this.ClearControlTXT();
             } catch (IOException ex) {
                 Logger.getLogger(FrShowListStudent.class.getName()).log(Level.SEVERE, null, ex);
             }
