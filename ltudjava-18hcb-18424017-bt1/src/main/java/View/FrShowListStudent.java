@@ -277,8 +277,14 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
             this.ListStudentByClass.get(nameClass).remove(this.table.getSelectedRow());
             try {
                 isAddSuccess = STctl.DelStudent(nameClass, this.ListStudentByClass.get(nameClass));
-                this.tableModel.removeRow(this.table.getSelectedRow());
-                this.table.setModel(this.tableModel);
+                if (isAddSuccess) {
+                    this.tableModel.removeRow(this.table.getSelectedRow());
+                    //upd index
+                    for (int i = 0;i < this.ListStudentByClass.get(nameClass).size();i++)
+                        this.tableModel.setValueAt(i + 1, i, 0);
+                    this.table.setModel(this.tableModel);
+                    this.ClearControlTXT();
+                }
             } catch (IOException ex) {
                 Logger.getLogger(FrShowListStudent.class.getName()).log(Level.SEVERE, null, ex);
             }
