@@ -120,8 +120,11 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
             public void actionPerformed(ActionEvent event) {
                 JComboBox comboBox = (JComboBox) event.getSource();
                 Object selected = comboBox.getSelectedItem();
-                
                 table.getSelectionModel().clearSelection();
+                if (cmbListNameClass.getSelectedItem().toString().indexOf("-") == -1)
+                    btnDelStudent.setEnabled(false);
+                else
+                    btnDelStudent.setEnabled(true);
                 ShowListStudent(selected.toString());
             }
         });
@@ -260,7 +263,11 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
             }
         } 
         else if (e.getSource().equals(this.btnDelStudent)){
-            int dialogResult = JOptionPane.showConfirmDialog (null, "Bạn có chắt muốn xóa sinh viên này?","Thông báo",JOptionPane.YES_NO_OPTION);
+            if (this.table.getSelectedRow() < 0){
+                JOptionPane.showMessageDialog((JFrame)null, "Hãy chọn 1 sinh viên!", "Thông báo", 1);
+                return;
+            }
+            int dialogResult = JOptionPane.showConfirmDialog (null, "Bạn có chắt muốn xóa sinh viên này?","Cảnh báo",JOptionPane.YES_NO_OPTION);
             if (dialogResult == JOptionPane.NO_OPTION)
                 return;
             StudentController STctl = new StudentController();
