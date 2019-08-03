@@ -58,6 +58,7 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
     ButtonGroup grGender=new ButtonGroup();  
     
     JButton btnAddStudent;
+    JButton btnDelStudent;
     
     public FrShowListStudent() throws IOException {
         this.setTitle("Xem danh sách học sinh");
@@ -170,10 +171,15 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
             }
         });
         
-        this.btnAddStudent = new JButton("Them SV");
+        this.btnAddStudent = new JButton("Thêm SV");
         this.btnAddStudent.setBounds(10,170,100,25);
         this.btnAddStudent.addActionListener(this);
         this.panel.add(this.btnAddStudent);
+        
+        this.btnDelStudent = new JButton("Xóa SV");
+        this.btnDelStudent.setBounds(150,170,100,25);
+        this.btnDelStudent.addActionListener(this);
+        this.panel.add(this.btnDelStudent);
     }
     
     // show List student
@@ -251,6 +257,21 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
             } catch (IOException ex) {
                 Logger.getLogger(FrShowListStudent.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } 
+        else if (e.getSource().equals(this.btnDelStudent)){
+            StudentController STctl = new StudentController();
+            
+            String nameClass = this.cmbListNameClass.getSelectedItem().toString();
+            boolean isAddSuccess;
+            this.ListStudentByClass.get(nameClass).remove(this.table.getSelectedRow());
+            try {
+                isAddSuccess = STctl.DelStudent(nameClass, this.ListStudentByClass.get(nameClass));
+                this.tableModel.removeRow(this.table.getSelectedRow());
+                this.table.setModel(this.tableModel);
+            } catch (IOException ex) {
+                Logger.getLogger(FrShowListStudent.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
     }
     

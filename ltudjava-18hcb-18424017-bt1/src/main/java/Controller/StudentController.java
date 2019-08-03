@@ -140,4 +140,19 @@ public class StudentController {
         fw.close();
         return true;
     }
+    
+    public boolean DelStudent(String nameClass, ArrayList<Student> lstStudent) throws FileNotFoundException, IOException{
+        //write file
+        FileWriter fw = new FileWriter("Data/" + nameClass + ".txt");
+        
+        fw.write(nameClass + '\n');
+        for (Student student : lstStudent) {
+            //writing file
+            String strGender = (student.getGENDER())? "Nam": "Nữ";
+            fw.write(student.getIdStudent() + "," + student.getNAME() + "," +
+                     strGender + "," + student.getID() + '\n');
+        }
+        fw.close();
+        return true;
+    }
 }

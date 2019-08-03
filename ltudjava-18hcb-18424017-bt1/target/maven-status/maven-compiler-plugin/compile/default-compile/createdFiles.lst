@@ -19,6 +19,7 @@ Controller/ScoreSubjectOfStudentController.class
 View/FrShowListSubject.class
 View/FrSocreOfStudent$1.class
 View/Login.class
+View/FrShowListScores$3.class
 View/FrShowListScores.class
 Model/ScoreSubjectOfStudent.class
 View/FrHome$1.class
