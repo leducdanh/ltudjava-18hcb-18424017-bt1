@@ -7,9 +7,12 @@ package Controller;
 
 import Model.ScoreSubjectOfStudent;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
@@ -20,9 +23,10 @@ public class ScoreSubjectOfStudentController {
     public void GetTimetable(String idSubject,  ArrayList<ScoreSubjectOfStudent> ListSubject) throws FileNotFoundException, IOException{
         try {
             String nameClass = this.GetClassStudentByIdStudent();
-            FileReader fr = new FileReader("Data/" + nameClass + "-" + idSubject + "_Scores.txt");
+            File fr = new File("Data/" + nameClass + "-" + idSubject + "_Scores.txt");
 
-            BufferedReader br = new BufferedReader(fr);
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                      new FileInputStream(fr), "UTF8"));
             
             ScoreSubjectOfStudent sb = new ScoreSubjectOfStudent();
             String nameSubject = this.GetNameSubjectByIdSubject(nameClass + "-" + idSubject);
@@ -42,7 +46,7 @@ public class ScoreSubjectOfStudentController {
                     break;
                 }
             }
-        fr.close();
+        br.close();
         } catch (Exception e) {
         }
     }
@@ -55,8 +59,9 @@ public class ScoreSubjectOfStudentController {
     private String GetNameSubjectByIdSubject(String IdSubject) throws FileNotFoundException{
         try {
             
-            FileReader fr = new FileReader("Data/" + IdSubject.split("-")[0] + "_Timetable.txt");
-            BufferedReader br = new BufferedReader(fr);
+            File fr = new File("Data/" + IdSubject.split("-")[0] + "_Timetable.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                      new FileInputStream(fr), "UTF8"));
             
             while (true){
                 String str = br.readLine();
@@ -68,7 +73,7 @@ public class ScoreSubjectOfStudentController {
                 }
             }
             
-            fr.close();
+            br.close();
         } catch (Exception e) {
             return "";
         }

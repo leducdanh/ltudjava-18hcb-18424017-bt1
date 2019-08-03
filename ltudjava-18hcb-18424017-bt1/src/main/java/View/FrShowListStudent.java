@@ -201,6 +201,7 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
         this.ClearControlTXT();
         this.tableModel.getDataVector().removeAllElements();
         this.tableModel.addRow(new String[] {});
+        this.tableModel.removeRow(0);
         if (this.ListStudentByClass.get(Key) == null) {
             this.table.setModel(tableModel);
             return;
@@ -263,6 +264,7 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
             }
         } 
         else if (e.getSource().equals(this.btnDelStudent)){
+            String nameClass = this.cmbListNameClass.getSelectedItem().toString();
             if (this.table.getSelectedRow() < 0){
                 JOptionPane.showMessageDialog((JFrame)null, "Hãy chọn 1 sinh viên!", "Thông báo", 1);
                 return;
@@ -272,7 +274,6 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
                 return;
             StudentController STctl = new StudentController();
             
-            String nameClass = this.cmbListNameClass.getSelectedItem().toString();
             boolean isAddSuccess;
             this.ListStudentByClass.get(nameClass).remove(this.table.getSelectedRow());
             try {

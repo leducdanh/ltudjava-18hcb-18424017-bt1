@@ -7,10 +7,13 @@ package Controller;
 
 import Model.Subject;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,9 +25,10 @@ public class SubjectController {
     
     public void GetTimetable(String pathFile, HashMap<String, ArrayList<Subject>> ListSubject) throws FileNotFoundException, IOException{
         try {
-            FileReader fr = new FileReader(pathFile);
+            File fr = new File(pathFile);
 
-            BufferedReader br = new BufferedReader(fr);
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                      new FileInputStream(fr), "UTF8"));
             ArrayList<Subject> LstSubject = new ArrayList<Subject>();
 
             String nameClass = br.readLine();
@@ -41,7 +45,7 @@ public class SubjectController {
 
             }
             ListSubject.put(nameClass, LstSubject);
-        fr.close();
+        br.close();
         } catch (Exception e) {
         }
     }
