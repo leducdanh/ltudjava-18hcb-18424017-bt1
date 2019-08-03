@@ -30,6 +30,7 @@ import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -259,6 +260,9 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
             }
         } 
         else if (e.getSource().equals(this.btnDelStudent)){
+            int dialogResult = JOptionPane.showConfirmDialog (null, "Bạn có chắt muốn xóa sinh viên này?","Thông báo",JOptionPane.YES_NO_OPTION);
+            if (dialogResult == JOptionPane.NO_OPTION)
+                return;
             StudentController STctl = new StudentController();
             
             String nameClass = this.cmbListNameClass.getSelectedItem().toString();
