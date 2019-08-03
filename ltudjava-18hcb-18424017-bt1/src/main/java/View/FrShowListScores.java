@@ -282,24 +282,23 @@ public class FrShowListScores extends JFrame implements ActionListener, Comparat
             String nameClass = this.cmbListNameSubject.getSelectedItem().toString();
             boolean isUpdSuccess;
             try {
-                isUpdSuccess = scoreCtr.UpdateScore(score, nameClass, this.ListScores.get(nameClass));
+                this.ListScores.get(nameClass).set(this.table.getSelectedRow(), score);
+                isUpdSuccess = scoreCtr.UpdateScore(nameClass, this.ListScores.get(nameClass));
                 if (isUpdSuccess){
-                    //edit row table
-                    this.tableModel.setValueAt(this.txtScoreMidSemester.getText(),
-                                                this.table.getSelectedRow(), 3);
-                    this.tableModel.setValueAt(this.txtScoreEndSemester.getText(),
-                                                this.table.getSelectedRow(), 4);
-                    this.tableModel.setValueAt(this.txtScoreplus.getText(),
-                                                this.table.getSelectedRow(), 5);
-                    this.tableModel.setValueAt(this.txtScoreSummary.getText(),
-                                                this.table.getSelectedRow(), 6);
-                    this.tableModel.setValueAt((Float.parseFloat(this.txtScoreSummary.getText()) >=5 ? "Đậu" : "Rớt"),
-                                                this.table.getSelectedRow(), 7);
-                    // edit StatisticalPassFail
+                    this.tableModel.setValueAt(this.txtScoreMidSemester.getText(), this.table.getSelectedRow(), 3);
+                    this.tableModel.setValueAt(this.txtScoreEndSemester.getText(), this.table.getSelectedRow(), 4);
+                    this.tableModel.setValueAt(this.txtScoreplus.getText(), this.table.getSelectedRow(), 5);
+                    this.tableModel.setValueAt(this.txtScoreSummary.getText(), this.table.getSelectedRow(), 6);
+                    this.tableModel.setValueAt(
+                            Float.parseFloat(this.txtScoreSummary.getText()) >=5 ? "Đậu" : "Rớt"
+                            , this.table.getSelectedRow(), 7);
+                    
                     int qtyPass = 0;
                     int percentPass = 0;
-                    for (int i = 0; i < this.ListScores.get(nameClass).size(); i++) {
-                        qtyPass = (Float.parseFloat(this.ListScores.get(nameClass).get(i).getScoreSummary()) >= 5) ? ++qtyPass : qtyPass;
+                    Comparator<Scores> compareById = (Scores o1, Scores o2) -> o1.getIdStudent().compareTo( o2.getIdStudent() );
+                    Collections.sort(this.ListScores.get(nameClass), compareById);
+                    for (Scores sc : this.ListScores.get(nameClass)) {
+                        qtyPass = (Float.parseFloat(sc.getScoreSummary()) >= 5) ? ++qtyPass : qtyPass;
                     }
                     this.lblQtyPass.setText("");
                     this.lblQtyPass.setText("Số SV đậu: " + "" + qtyPass);
@@ -312,11 +311,12 @@ public class FrShowListScores extends JFrame implements ActionListener, Comparat
                     percentPass = qtyPass * 100 / this.ListScores.get(nameClass).size();
                     this.lblPercentFail.setText("");
                     this.lblPercentFail.setText("Chiếm: " + "" + (100 - percentPass) + "%");
-                    ///////////////////////////
+                    this.table.setModel(this.tableModel);
                 }
             } catch (IOException ex) {
                 Logger.getLogger(FrShowListScores.class.getName()).log(Level.SEVERE, null, ex);
             }
+                
         }
     }
     

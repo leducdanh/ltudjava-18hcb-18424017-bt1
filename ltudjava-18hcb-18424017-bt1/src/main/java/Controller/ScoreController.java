@@ -97,51 +97,25 @@ public class ScoreController {
         return true;
     }
     
-    public boolean UpdateScore(Scores score, String nameClass, ArrayList<Scores> lstScores) throws FileNotFoundException, IOException{
+    public boolean UpdateScore(String nameClass, ArrayList<Scores> lstScores) throws FileNotFoundException, IOException{
         try {
             //write file
-            FileReader fr = new FileReader("Data/" + nameClass + "_Scores.txt");
-
-            BufferedReader br = new BufferedReader(fr);
-            String oldInfo = "";
-            String data = "";
-            String newInfo = score.getIdStudent() + ","
-                            + score.getName() + ","
-                            + "" + score.getScoreMidSemester() + ","
-                            + "" + score.getScoreEndSemester() + ","
-                            + "" + score.getScoreplus() + ","
-                            + "" + score.getScoreSummary();
-            for (Scores st : lstScores){
-                if (st.getIdStudent().equals(score.getIdStudent())){
-                    oldInfo = st.getIdStudent() + ","
-                            + st.getName() + ","
-                            + "" + st.getScoreMidSemester() + ","
-                            + "" + st.getScoreEndSemester() + ","
-                            + "" + st.getScoreplus() + ","
-                            + "" + st.getScoreSummary();
-                    
-                    //upd list
-                    st.setScoreMidSemester(score.getScoreMidSemester());
-                    st.setScoreEndSemester(score.getScoreEndSemester());
-                    st.setScoreplus(score.getScoreplus());
-                    st.setScoreSummary(score.getScoreSummary());
-                    break;
-                }
-            }
-
-            while (true){
-                String str = br.readLine();
-                if (str == null)
-                    break;
-
-                data += str + "\r\n";
-
-            }
-            fr.close();
-
             FileWriter fw = new FileWriter("Data/" + nameClass + "_Scores.txt");
-            data = data.replaceAll(oldInfo, newInfo);
-            fw.write(data);
+
+            String newInfo = "";
+
+            fw.write(nameClass + '\n');
+            for (Scores Score : lstScores) {
+                String str = Score.getIdStudent() + ","
+                             + Score.getName()+ ","
+                             + Score.getScoreMidSemester()+ ","
+                             + Score.getScoreEndSemester()+ ","
+                             + Score.getScoreplus()+ ","
+                             + Score.getScoreSummary();
+                newInfo += str + "\r\n";
+            }
+
+            fw.write(newInfo);
             fw.close();
             return true;
         } catch (Exception e) {
