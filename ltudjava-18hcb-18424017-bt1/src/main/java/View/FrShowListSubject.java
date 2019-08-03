@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.LoginColtroller;
 import Controller.SubjectController;
 import Model.Subject;
 import java.awt.event.ActionEvent;
@@ -42,6 +43,11 @@ public class FrShowListSubject extends JFrame implements ActionListener, Compara
     ArrayList<String> LstItemCmb= new ArrayList<String>();  
     
     public FrShowListSubject() throws IOException {
+        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
+            Login lg = new Login();
+            lg.setVisible(true);
+            this.dispose();
+        }
         this.setResizable(false);
         LstItemCmb.add("");
         this.InitFrame();

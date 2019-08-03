@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.LoginColtroller;
 import Controller.ScoreSubjectOfStudentController;
 import Model.ScoreSubjectOfStudent;
 import java.awt.event.ActionEvent;
@@ -38,6 +39,11 @@ public class FrSocreOfStudent extends JFrame implements ActionListener, Comparat
     ArrayList<String> LstIdSubject= new ArrayList<String>();  
     
     public FrSocreOfStudent() throws IOException {
+        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
+            Login lg = new Login();
+            lg.setVisible(true);
+            this.dispose();
+        }
         this.setResizable(false);
         LstIdSubject.add("");
         this.InitFrame();

@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.LoginColtroller;
 import Controller.ScoreController;
 import Model.Scores;
 import java.awt.Color;
@@ -61,6 +62,11 @@ public class FrShowListScores extends JFrame implements ActionListener, Comparat
     JButton btnUpdate;
     
     public FrShowListScores() throws IOException{
+        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
+            Login lg = new Login();
+            lg.setVisible(true);
+            this.dispose();
+        }
         this.setTitle("Xem danh sách điểm");
         this.setResizable(false);
         LstItemCmb.add("");
@@ -205,7 +211,7 @@ public class FrShowListScores extends JFrame implements ActionListener, Comparat
             BufferedReader br = new BufferedReader(fr);
             while (true){
                 String str = br.readLine();
-                if (str == null)
+                if (str.isEmpty())
                     break;
                 this.LstItemCmb.add(str);
 

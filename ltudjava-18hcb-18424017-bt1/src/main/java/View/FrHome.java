@@ -41,11 +41,11 @@ public class FrHome extends JFrame implements ActionListener{
     private JButton btnLogout;
     
     public FrHome() {
-//        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
-//            Login lg = new Login();
-//            lg.setVisible(true);
-//            this.dispose();
-//        }
+        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
+            Login lg = new Login();
+            lg.setVisible(true);
+            this.dispose();
+        }
         //event Closing Frame
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {

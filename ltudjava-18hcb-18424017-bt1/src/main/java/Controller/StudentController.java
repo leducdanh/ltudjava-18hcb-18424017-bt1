@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Model.Scores;
 import Model.Student;
 import java.io.BufferedReader;
 import java.io.File;
@@ -37,7 +38,7 @@ public class StudentController {
             while (true){
                 Student st = new Student();
                 String str = br.readLine();
-                if (str == null)
+                if (str.isEmpty())
                     break;
 
                 st.setIdStudent(str.split(",")[0]); //set MSSV for student
@@ -77,7 +78,7 @@ public class StudentController {
             String strLstNameClass = "";
             while (true){
                 String str = br.readLine();
-                if (str == null)
+                if (str.isEmpty())
                     break;
                strLstNameClass += str + ",";
             }
@@ -87,7 +88,7 @@ public class StudentController {
             String strLstAccount = "";
             while (true){
                 String str = br.readLine();
-                if (str == null)
+                if (str.isEmpty())
                     break;
                strLstAccount += str + ",";
             }
@@ -104,7 +105,7 @@ public class StudentController {
             while (true){
                 Student st = new Student();
                 String str = br.readLine();
-                if (str == null)
+                if (str.isEmpty())
                     break;
                 
                 fw.write(str + '\n');
@@ -146,10 +147,16 @@ public class StudentController {
         return true;
     }
     
-    public boolean DelStudent(String nameClass, ArrayList<Student> lstStudent) throws FileNotFoundException, IOException{
+    public boolean DelStudent(String IdStudent, String nameClass, ArrayList<Student> lstStudent) throws FileNotFoundException, IOException{
         //write file
         FileWriter fw = new FileWriter("Data/" + nameClass + ".txt");
         
+        File frScores = new File("Data/" + nameClass + "_Scores.txt");
+        
+        ArrayList<Scores> lstScores = new ArrayList<Scores>();
+        BufferedReader br = new BufferedReader(new InputStreamReader(
+                    new FileInputStream(frScores), "UTF8"));
+            
         fw.write(nameClass + '\n');
         for (Student student : lstStudent) {
             //writing file
@@ -158,6 +165,21 @@ public class StudentController {
                      strGender + "," + student.getID() + '\n');
         }
         fw.close();
+        String data = "";
+        while(true) {
+            String str = br.readLine();
+            if (str.isEmpty())
+                break;
+            if (!str.split(",")[0].equals(IdStudent)){
+                data += str + "\r\n";
+            }
+        }
+        
+        FileWriter fwScore = new FileWriter("Data/" + nameClass + "_Scores.txt");
+        
+        fwScore.write(data + '\n');
+        fwScore.close();
+        br.close();
         return true;
     }
 }

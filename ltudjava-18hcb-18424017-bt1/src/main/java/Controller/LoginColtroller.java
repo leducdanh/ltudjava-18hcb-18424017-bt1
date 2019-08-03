@@ -50,7 +50,7 @@ public class LoginColtroller {
 
             while (true){
                 String str = br.readLine();
-                if (str == null)
+                if (str.isEmpty())
                     break;
 
                 data += str + "\r\n";

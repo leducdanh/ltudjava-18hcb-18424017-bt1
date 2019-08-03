@@ -35,7 +35,7 @@ public class SubjectController {
             while (true){
                 Subject sb = new Subject();
                 String str = br.readLine();
-                if (str == null)
+                if (str.isEmpty())
                     break;
 
                 sb.setID(str.split(",")[0]); //set id subject
@@ -67,7 +67,7 @@ public class SubjectController {
             fw.write(nameClass + '\n');
             while (true){
                 String str = br.readLine();
-                if (str == null)
+                if (str.isEmpty())
                     break;
 
                 fw.write(str + '\n');

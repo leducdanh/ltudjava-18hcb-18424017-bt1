@@ -31,11 +31,11 @@ public class FrChangePass extends JFrame implements ActionListener{
     JPasswordField txtConfirmPass = new JPasswordField(20);
     
     public FrChangePass() {
-//        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
-//            Login lg = new Login();
-//            lg.setVisible(true);
-//            this.dispose();
-//        }
+        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
+            Login lg = new Login();
+            lg.setVisible(true);
+            this.dispose();
+        }
         CreateFrame();
         //event Closing Frame
         this.addWindowListener(new WindowAdapter() {

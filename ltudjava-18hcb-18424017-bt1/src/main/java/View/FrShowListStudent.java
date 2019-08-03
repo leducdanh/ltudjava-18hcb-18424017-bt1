@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.LoginColtroller;
 import Model.Student;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -65,11 +66,11 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
         this.setTitle("Xem danh sách học sinh");
         this.setResizable(false);
         LstItemCmb.add("");
-//        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
-//            Login lg = new Login();
-//            lg.setVisible(true);
-//            this.dispose();
-//        }
+        if (LoginColtroller.Username.isEmpty() && LoginColtroller.Pass.isEmpty()){
+            Login lg = new Login();
+            lg.setVisible(true);
+            this.dispose();
+        }
         
         ///////////////////////////////////////////////////
         //event Closing Frame
@@ -273,11 +274,12 @@ public class FrShowListStudent extends JFrame implements ActionListener, Compara
             if (dialogResult == JOptionPane.NO_OPTION)
                 return;
             StudentController STctl = new StudentController();
+            String IdStudent = this.ListStudentByClass.get(nameClass).get(this.table.getSelectedRow()).getIdStudent();
             
             boolean isAddSuccess;
             this.ListStudentByClass.get(nameClass).remove(this.table.getSelectedRow());
             try {
-                isAddSuccess = STctl.DelStudent(nameClass, this.ListStudentByClass.get(nameClass));
+                isAddSuccess = STctl.DelStudent(IdStudent, nameClass, this.ListStudentByClass.get(nameClass));
                 if (isAddSuccess) {
                     this.tableModel.removeRow(this.table.getSelectedRow());
                     //upd index
