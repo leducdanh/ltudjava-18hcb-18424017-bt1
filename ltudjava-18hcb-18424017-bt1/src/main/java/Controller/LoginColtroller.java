@@ -21,7 +21,7 @@ public class LoginColtroller {
     public boolean IsLogin(String us, String pass) throws IOException{
         try {
             
-            FileReader fr = new FileReader("Data/accountTeachers.csv");
+            FileReader fr = new FileReader("Data/accountTeacher.csv");
             BufferedReader br = new BufferedReader(fr);
 
             while(true){
