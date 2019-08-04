@@ -38,7 +38,7 @@ public class StudentController {
             while (true){
                 Student st = new Student();
                 String str = br.readLine();
-                if (str == null)
+                if (str == null || str.trim().isEmpty())
                     break;
 
                 st.setIdStudent(str.split(",")[0]); //set MSSV for student
@@ -78,7 +78,7 @@ public class StudentController {
             String strLstNameClass = "";
             while (true){
                 String str = br.readLine();
-                if (str == null)
+                if (str == null || str.trim().isEmpty())
                     break;
                strLstNameClass += str + ",";
             }
@@ -88,7 +88,7 @@ public class StudentController {
             String strLstAccount = "";
             while (true){
                 String str = br.readLine();
-                if (str == null)
+                if (str == null || str.trim().isEmpty())
                     break;
                strLstAccount += str + ",";
             }
@@ -105,7 +105,7 @@ public class StudentController {
             while (true){
                 Student st = new Student();
                 String str = br.readLine();
-                if (str == null)
+                if (str == null || str.trim().isEmpty())
                     break;
                 
                 fw.write(str + '\n');
