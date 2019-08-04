@@ -19,22 +19,27 @@ public class LoginColtroller {
     public static String Pass="";
     
     public boolean IsLogin(String us, String pass) throws IOException{
-        FileReader fr = new FileReader("Data/accountTeacher.csv");
-        BufferedReader br = new BufferedReader(fr);
-        
-        while(true){
-            String Acc = br.readLine();
-            if (Acc == null) {
-                
-                return false;
-            }
+        try {
             
-            if (Acc.split(" ")[0].equals(us) && Acc.split(" ")[1].equals(pass)){
-                this.Username = us;
-                this.Pass = pass;
-                return true;
+            FileReader fr = new FileReader("Data/accountTeachers.csv");
+            BufferedReader br = new BufferedReader(fr);
+
+            while(true){
+                String Acc = br.readLine();
+                if (Acc == null) {
+
+                    return false;
+                }
+
+                if (Acc.split(" ")[0].equals(us) && Acc.split(" ")[1].equals(pass)){
+                    this.Username = us;
+                    this.Pass = pass;
+                    return true;
+                }
+
             }
-                
+        } catch (Exception e) {
+            return false;
         }
     }
     
