@@ -22,7 +22,6 @@ import java.util.ArrayList;
 public class ScoreSubjectOfStudentController {
     public void GetTimetable(String idSubject,  ArrayList<ScoreSubjectOfStudent> ListSubject) throws FileNotFoundException, IOException{
         try {
-            String nameClass = this.GetClassStudentByIdStudent();
             File fr = new File("Data/" + idSubject + "_Scores.txt");
 
             BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -51,10 +50,6 @@ public class ScoreSubjectOfStudentController {
         }
     }
     
-    private String GetClassStudentByIdStudent(){
-        return LoginColtroller.Username.substring(0, 2) + "HCB";
-    }
-    
     //IdSubject {18HCB-CT001}
     private String GetNameSubjectByIdSubject(String IdSubject) throws FileNotFoundException{
         try {
@@ -65,7 +60,7 @@ public class ScoreSubjectOfStudentController {
             
             while (true){
                 String str = br.readLine();
-                if (str == null)
+                if (str == null || str.isEmpty())
                     break;
                 
                 if (str.indexOf(IdSubject) >= 0){
